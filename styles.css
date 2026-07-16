@@ -11,11 +11,15 @@
   --bg-elev-2:     #1b1624;
   --magenta:       #ff0092;
   --magenta-soft:  #ff33a8;
+  /* Variante más oscura, mismo hue: solo para texto blanco SOBRE fondo magenta sólido.
+     #ff0092 con texto blanco da 3.42:1 (falla AA). Esta da ~4.75:1. */
+  --magenta-btn:   #d4007a;
   --violet:        #3d1f52;
   --violet-deep:   #1c0f28;
   --white:         #f7f5f8;
   --muted:         #a49dae;
-  --muted-dim:     #6f6879;
+  /* Aclarado desde #6f6879 (3.5–3.7:1, fallaba AA en texto pequeño) a ~6:1 */
+  --muted-dim:     #948da0;
   --line:          rgba(247,245,248,0.1);
 
   /* Tipografia */
@@ -176,7 +180,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   transition:background .25s ease, color .25s ease, box-shadow .25s ease;
 }
 .nav__cta:hover{
-  background:var(--magenta);
+  background:var(--magenta-btn);
   box-shadow:0 0 28px rgba(255,0,146,0.55);
 }
 
@@ -324,7 +328,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
 }
 .btn--solid{
-  background:var(--magenta);
+  background:var(--magenta-btn);
   color:#fff;
 }
 .btn--solid:hover{

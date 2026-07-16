@@ -61,17 +61,33 @@ onScrollNav();
 /* ---------- Menú móvil ---------- */
 const burger = document.getElementById("burger");
 const mobileMenu = document.getElementById("mobileMenu");
-burger.addEventListener("click", () => {
-  const open = mobileMenu.classList.toggle("is-open");
+
+function setMobileMenu(open){
+  mobileMenu.classList.toggle("is-open", open);
   burger.classList.toggle("is-open", open);
   burger.setAttribute("aria-expanded", open ? "true" : "false");
+  mobileMenu.setAttribute("aria-hidden", open ? "false" : "true");
+  // inert saca el menú del orden de tabulación y de los lectores de pantalla
+  // cuando está fuera de pantalla — con solo transform, seguía siendo enfocable.
+  if (open) mobileMenu.removeAttribute("inert");
+  else mobileMenu.setAttribute("inert", "");
   document.body.style.overflow = open ? "hidden" : "";
+  if (open){
+    mobileMenu.querySelector("a")?.focus();
+  }
+}
+burger.addEventListener("click", () => {
+  setMobileMenu(!mobileMenu.classList.contains("is-open"));
 });
 mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
-  mobileMenu.classList.remove("is-open");
-  burger.classList.remove("is-open");
-  document.body.style.overflow = "";
+  setMobileMenu(false);
 }));
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && mobileMenu.classList.contains("is-open")){
+    setMobileMenu(false);
+    burger.focus();
+  }
+});
 
 /* ---------- Titular del hero: palabras que van cambiando ---------- */
 (function heroWordCycler(){
@@ -188,7 +204,7 @@ mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => 
     card.innerHTML = `
       <div class="card3d__art">
         <span class="card3d__mark">${item.anio}</span>
-        <button class="card3d__play" aria-label="Escuchar ${item.titulo} en Spotify">
+        <button class="card3d__play" type="button" tabindex="-1" aria-label="Escuchar ${item.titulo} en Spotify">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
         </button>
         <div class="card3d__info">
@@ -196,7 +212,11 @@ mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => 
           <span>${item.artista}</span>
         </div>
       </div>`;
-    card.addEventListener("click", (e) => {
+    card.querySelector(".card3d__play").addEventListener("click", (e) => {
+      e.stopPropagation();
+      window.open(spotifySearchUrl(item.titulo, item.artista), "_blank", "noopener");
+    });
+    card.addEventListener("click", () => {
       if (i === active){
         window.open(spotifySearchUrl(item.titulo, item.artista), "_blank", "noopener");
       } else {
@@ -240,6 +260,7 @@ mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => 
       card.style.zIndex = zIndex;
       card.style.pointerEvents = abs > 2 ? "none" : "auto";
       card.classList.toggle("is-active", isActive);
+      card.querySelector(".card3d__play").tabIndex = isActive ? 0 : -1;
     });
     dots.forEach((d, i) => d.classList.toggle("is-active", i === active));
   }
