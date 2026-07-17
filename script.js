@@ -92,8 +92,9 @@ document.addEventListener("keydown", (e) => {
 /* ---------- Titular del hero: palabras que van cambiando ---------- */
 (function heroWordCycler(){
   const titleEl = document.querySelector(".hero__title");
+  const wrapEl = document.querySelector(".hero__word-wrap");
   const el = document.getElementById("heroWord");
-  if (!el || !titleEl) return;
+  if (!el || !titleEl || !wrapEl) return;
 
   // Sonda invisible con la misma tipografía que la palabra animada,
   // para medir cuánto ocupa el texto sin pintarlo en pantalla.
@@ -107,7 +108,9 @@ document.addEventListener("keydown", (e) => {
 
   function fitWord(word){
     // Medimos a escala 1 para tener el ancho real disponible en la línea.
-    titleEl.style.setProperty("--hero-scale", 1);
+    // Solo tocamos la escala de la palabra: la línea "ESTO ES" no depende
+    // de esta variable y por tanto nunca cambia de tamaño con ella.
+    wrapEl.style.setProperty("--hero-scale", 1);
     const available = titleEl.getBoundingClientRect().width;
     const cs = getComputedStyle(el);
     probe.style.fontFamily = cs.fontFamily;
@@ -121,7 +124,7 @@ document.addEventListener("keydown", (e) => {
     // por encima de 1x, solo se encoge si de verdad no cabe. Así todas se
     // ven con un peso visual consistente y ancladas a la izquierda.
     const scale = width > 0 ? Math.min(1, Math.max(0.32, (available / width) * 0.97)) : 1;
-    titleEl.style.setProperty("--hero-scale", scale);
+    wrapEl.style.setProperty("--hero-scale", scale);
   }
 
   let i = 0;

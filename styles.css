@@ -275,8 +275,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 .hero__content{ position:relative; }
 
 .hero__title{
-  --hero-scale:1;
-  font-size:calc(clamp(3rem, 9vw, 7.2rem) * var(--hero-scale));
+  font-size:clamp(3rem, 9vw, 7.2rem);
   line-height:0.94;
   margin-top:22px;
   text-transform:uppercase;
@@ -284,11 +283,13 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 }
 .hero__title .line{ display:block; }
 .hero__word-wrap{
+  --hero-scale:1;
   display:block;
   position:relative;
   color:var(--magenta);
   min-width:1ch;
   white-space:nowrap;
+  font-size:calc(1em * var(--hero-scale));
 }
 .hero__word{
   display:inline-block;
