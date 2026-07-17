@@ -91,9 +91,56 @@ document.addEventListener("keydown", (e) => {
 
 /* ---------- Titular del hero: palabras que van cambiando ---------- */
 (function heroWordCycler(){
+  const titleEl = document.querySelector(".hero__title");
   const el = document.getElementById("heroWord");
-  if (!el) return;
+  if (!el || !titleEl) return;
+
+  // Sonda invisible con la misma tipografía que la palabra animada,
+  // para medir cuánto ocupa el texto sin pintarlo en pantalla.
+  const probe = document.createElement("span");
+  probe.style.position = "absolute";
+  probe.style.visibility = "hidden";
+  probe.style.whiteSpace = "nowrap";
+  probe.style.left = "-9999px";
+  probe.style.top = "0";
+  document.body.appendChild(probe);
+
+  function fitWord(word){
+    // Medimos a escala 1 para tener el ancho real disponible en la línea.
+    titleEl.style.setProperty("--hero-scale", 1);
+    const available = titleEl.getBoundingClientRect().width;
+    const cs = getComputedStyle(el);
+    probe.style.fontFamily = cs.fontFamily;
+    probe.style.fontWeight = cs.fontWeight;
+    probe.style.fontSize = cs.fontSize;
+    probe.style.letterSpacing = cs.letterSpacing;
+    probe.style.textTransform = cs.textTransform;
+    probe.textContent = word;
+    const width = probe.getBoundingClientRect().width;
+    // Cada palabra llena el ancho disponible por sí sola — nunca se agranda
+    // por encima de 1x, solo se encoge si de verdad no cabe. Así todas se
+    // ven con un peso visual consistente y ancladas a la izquierda.
+    const scale = width > 0 ? Math.min(1, Math.max(0.32, (available / width) * 0.97)) : 1;
+    titleEl.style.setProperty("--hero-scale", scale);
+  }
+
   let i = 0;
+  function applyWord(){
+    el.textContent = HERO_WORDS[i];
+    if (document.fonts && document.fonts.ready){
+      document.fonts.ready.then(() => fitWord(HERO_WORDS[i]));
+    } else {
+      fitWord(HERO_WORDS[i]);
+    }
+  }
+  applyWord();
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => fitWord(HERO_WORDS[i]), 150);
+  });
+
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduced) return;
   setInterval(() => {
@@ -101,69 +148,9 @@ document.addEventListener("keydown", (e) => {
     el.style.animation = "none";
     // fuerza reflow para poder reiniciar la animación
     void el.offsetWidth;
-    el.textContent = HERO_WORDS[i];
+    applyWord();
     el.style.animation = "";
   }, 2200);
-})();
-
-/* ---------- Ajuste automático del tamaño del titular del hero ----------
-   Calcula, una sola vez, el tamaño de letra más grande que quepa en pantalla
-   incluso para la palabra más larga de HERO_WORDS. Así todas las palabras
-   se ven siempre con el mismo tamaño y nada se descuadra al ir cambiando. */
-(function fitHeroTitle(){
-  const titleEl = document.querySelector(".hero__title");
-  const wordEl = document.getElementById("heroWord");
-  if (!titleEl || !wordEl) return;
-
-  function measure(){
-    // Volvemos a escala 1 para medir el ancho real disponible
-    titleEl.style.setProperty("--hero-scale", 1);
-
-    const available = titleEl.getBoundingClientRect().width;
-
-    // Sonda invisible con la misma tipografía que la palabra animada,
-    // para medir cuánto ocupa cada palabra candidata sin pintarla en pantalla.
-    const probe = document.createElement("span");
-    const cs = getComputedStyle(wordEl);
-    probe.style.position = "absolute";
-    probe.style.visibility = "hidden";
-    probe.style.whiteSpace = "nowrap";
-    probe.style.left = "-9999px";
-    probe.style.top = "0";
-    probe.style.fontFamily = cs.fontFamily;
-    probe.style.fontWeight = cs.fontWeight;
-    probe.style.fontSize = cs.fontSize;
-    probe.style.letterSpacing = cs.letterSpacing;
-    probe.style.textTransform = cs.textTransform;
-    document.body.appendChild(probe);
-
-    let maxWidth = 0;
-    HERO_WORDS.forEach(word => {
-      probe.textContent = word;
-      maxWidth = Math.max(maxWidth, probe.getBoundingClientRect().width);
-    });
-    document.body.removeChild(probe);
-
-    if (maxWidth > available && maxWidth > 0){
-      const scale = Math.max(0.32, (available / maxWidth) * 0.97);
-      titleEl.style.setProperty("--hero-scale", scale);
-    } else {
-      titleEl.style.setProperty("--hero-scale", 1);
-    }
-  }
-
-  // Recalcular cuando la tipografía Syne termine de cargar (si no, se mide
-  // con la fuente de reserva y el cálculo puede quedarse corto o largo).
-  if (document.fonts && document.fonts.ready){
-    document.fonts.ready.then(measure);
-  }
-  measure();
-
-  let resizeTimer;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(measure, 150);
-  });
 })();
 
 /* ---------- Scroll reveal genérico ---------- */
