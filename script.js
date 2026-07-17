@@ -97,7 +97,7 @@ document.addEventListener("keydown", (e) => {
   if (!el || !titleEl || !wrapEl) return;
 
   // Sonda invisible con la misma tipografía que la palabra animada,
-  // para medir cuánto ocupa el texto sin pintarlo en pantalla.
+  // para medir cuánto ocupa cada palabra candidata sin pintarla en pantalla.
   const probe = document.createElement("span");
   probe.style.position = "absolute";
   probe.style.visibility = "hidden";
@@ -106,10 +106,12 @@ document.addEventListener("keydown", (e) => {
   probe.style.top = "0";
   document.body.appendChild(probe);
 
-  function fitWord(word){
-    // Medimos a escala 1 para tener el ancho real disponible en la línea.
-    // Solo tocamos la escala de la palabra: la línea "ESTO ES" no depende
-    // de esta variable y por tanto nunca cambia de tamaño con ella.
+  // Calculamos UNA sola escala fija, la que hace falta para que quepa la
+  // palabra más larga de la lista. Se aplica igual a todas las palabras —
+  // así ninguna crece para "llenar" la línea, todas miden lo mismo y
+  // quedan siempre ancladas al margen izquierdo, sin moverse ni un pixel
+  // de una palabra a otra.
+  function fitAll(){
     wrapEl.style.setProperty("--hero-scale", 1);
     const available = titleEl.getBoundingClientRect().width;
     const cs = getComputedStyle(el);
@@ -118,30 +120,34 @@ document.addEventListener("keydown", (e) => {
     probe.style.fontSize = cs.fontSize;
     probe.style.letterSpacing = cs.letterSpacing;
     probe.style.textTransform = cs.textTransform;
-    probe.textContent = word;
-    const width = probe.getBoundingClientRect().width;
-    // Cada palabra llena el ancho disponible por sí sola — nunca se agranda
-    // por encima de 1x, solo se encoge si de verdad no cabe. Así todas se
-    // ven con un peso visual consistente y ancladas a la izquierda.
-    const scale = width > 0 ? Math.min(1, Math.max(0.32, (available / width) * 0.97)) : 1;
+
+    let maxWidth = 0;
+    HERO_WORDS.forEach(word => {
+      probe.textContent = word;
+      maxWidth = Math.max(maxWidth, probe.getBoundingClientRect().width);
+    });
+
+    const scale = maxWidth > available && maxWidth > 0
+      ? Math.max(0.32, (available / maxWidth) * 0.97)
+      : 1;
     wrapEl.style.setProperty("--hero-scale", scale);
   }
 
   let i = 0;
   function applyWord(){
     el.textContent = HERO_WORDS[i];
-    if (document.fonts && document.fonts.ready){
-      document.fonts.ready.then(() => fitWord(HERO_WORDS[i]));
-    } else {
-      fitWord(HERO_WORDS[i]);
-    }
   }
   applyWord();
+
+  if (document.fonts && document.fonts.ready){
+    document.fonts.ready.then(fitAll);
+  }
+  fitAll();
 
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => fitWord(HERO_WORDS[i]), 150);
+    resizeTimer = setTimeout(fitAll, 150);
   });
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
