@@ -5,35 +5,54 @@
    cuando los tengas. No hace falta tocar nada más del archivo.
    ============================================================ */
 
-/* ---------- DATOS: portadas / discografía ---------- */
-// spotify: pon aquí la URL directa del álbum/single cuando la tengas.
-// Mientras tanto, dejamos un enlace de búsqueda en Spotify que ya funciona.
+/* ---------- DATOS: portadas / discografía ----------
+   Álbumes que han sido número 1 en la lista oficial de Promusicae
+   (Top 100 España) durante 2025-2026. spotify = enlace directo verificado
+   cuando lo tenemos; si no, se usa una búsqueda en Spotify (igual de real,
+   solo que sin ID exacto de álbum). */
 const DISCOGRAFIA = [
-  { titulo: "NOCTURNA",     artista: "Nova Ardiente", anio: "2026", c1: "#ff0092", c2: "#3d1f52" },
-  { titulo: "RAÍZ",         artista: "Califa",        anio: "2025", c1: "#ff33a8", c2: "#1c0f28" },
-  { titulo: "AZUL ELÉCTRICO", artista: "Lúa",          anio: "2026", c1: "#c400ff", c2: "#1c0f28" },
-  { titulo: "VÉRTIGO",      artista: "Marte 21",       anio: "2025", c1: "#ff0092", c2: "#241238" },
-  { titulo: "SOLSTICIO",    artista: "Kayra",          anio: "2026", c1: "#ff5fb8", c2: "#2a1339" },
-  { titulo: "DESIERTO",     artista: "Nova Ardiente",  anio: "2024", c1: "#e600ff", c2: "#160a20" },
+  { titulo: "LUX", artista: "ROSALÍA", anio: "2025", c1: "#ff0092", c2: "#3d1f52",
+    spotify: "https://open.spotify.com/album/3goLwu2fkSSmghikOcVufU" },
+  { titulo: "DeBÍ TiRAR MáS FOToS", artista: "Bad Bunny", anio: "2025", c1: "#ff33a8", c2: "#1c0f28",
+    spotify: "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb" },
+  { titulo: "Buenas Noches", artista: "Quevedo", anio: "2025", c1: "#c400ff", c2: "#1c0f28" },
+  { titulo: "Daisy", artista: "Rusowsky", anio: "2026", c1: "#ff0092", c2: "#241238" },
+  { titulo: "El Día Que Me Olvides", artista: "Walls", anio: "2026", c1: "#ff5fb8", c2: "#2a1339" },
+  { titulo: "How Did I Get Here?", artista: "Louis Tomlinson", anio: "2026", c1: "#e600ff", c2: "#160a20" },
 ];
 
-/* ---------- DATOS: canciones más escuchadas ---------- */
+/* ---------- DATOS: canciones más escuchadas ----------
+   Top de la lista diaria oficial de Spotify España (vía kworb.net).
+   Cada spotify es el enlace directo real a la canción. */
 const CANCIONES = [
-  { titulo: "Espejismo",      artista: "Nova Ardiente", c1: "#ff0092", c2: "#3d1f52" },
-  { titulo: "Ceniza y Oro",   artista: "Califa",        c1: "#ff33a8", c2: "#1c0f28" },
-  { titulo: "Marea",          artista: "Lúa",           c1: "#c400ff", c2: "#1c0f28" },
-  { titulo: "Fuego Lento",    artista: "Marte 21",      c1: "#ff0092", c2: "#241238" },
-  { titulo: "Horizonte",      artista: "Kayra",         c1: "#ff5fb8", c2: "#2a1339" },
+  { titulo: "LA GRACIOSA", artista: "Quevedo",
+    spotify: "https://open.spotify.com/track/0TJYJrUDKQ1btt4g0Xwklw", c1: "#ff0092", c2: "#3d1f52" },
+  { titulo: "BAILE INoLVIDABLE", artista: "Bad Bunny",
+    spotify: "https://open.spotify.com/track/2lTm559tuIvatlT1u0JYG2", c1: "#ff33a8", c2: "#1c0f28" },
+  { titulo: "Dichavate", artista: "Ya Ice Dilan",
+    spotify: "https://open.spotify.com/track/6Ab2trdJulkRRhaJ9zVGQa", c1: "#c400ff", c2: "#1c0f28" },
+  { titulo: "KOKO", artista: "Omar Courtz",
+    spotify: "https://open.spotify.com/track/1tz7RZirwiuaJw2p0jbdHb", c1: "#ff0092", c2: "#241238" },
+  { titulo: "MUCHACHA", artista: "Aissa",
+    spotify: "https://open.spotify.com/track/4rDCRcln8WCHWPRt0YTFLs", c1: "#ff5fb8", c2: "#2a1339" },
 ];
 
-/* ---------- DATOS: artistas más escuchados ---------- */
+/* ---------- DATOS: artistas más escuchados ----------
+   Artistas con más presencia en el Top 50 diario de España (Spotify,
+   vía kworb.net). spotify = enlace directo real al perfil del artista. */
 const ARTISTAS = [
-  { nombre: "Nova Ardiente", genero: "Pop alternativo", c1: "#ff0092", c2: "#3d1f52" },
-  { nombre: "Califa",        genero: "Urbano",          c1: "#ff33a8", c2: "#1c0f28" },
-  { nombre: "Lúa",           genero: "Indie folk",      c1: "#c400ff", c2: "#1c0f28" },
-  { nombre: "Marte 21",      genero: "Electrónica",     c1: "#ff0092", c2: "#241238" },
-  { nombre: "Kayra",         genero: "R&B",             c1: "#ff5fb8", c2: "#2a1339" },
-  { nombre: "Onda Sur",      genero: "Rock",             c1: "#e600ff", c2: "#160a20" },
+  { nombre: "Bad Bunny", genero: "Reguetón / Urbano",
+    spotify: "https://open.spotify.com/artist/4q3ewBCX7sLwd24euuV69X", c1: "#ff0092", c2: "#3d1f52" },
+  { nombre: "Quevedo", genero: "Trap / Urbano",
+    spotify: "https://open.spotify.com/artist/52iwsT98xCoGgiGntTiR7K", c1: "#ff33a8", c2: "#1c0f28" },
+  { nombre: "Aitana", genero: "Pop",
+    spotify: "https://open.spotify.com/artist/7eLcDZDYHXZCebtQmVFL25", c1: "#c400ff", c2: "#1c0f28" },
+  { nombre: "ROSALÍA", genero: "Flamenco-pop / Experimental",
+    spotify: "https://open.spotify.com/artist/7ltDVBr6mKbRvohxheJ9h1", c1: "#ff0092", c2: "#241238" },
+  { nombre: "Omar Courtz", genero: "Reguetón / Urbano",
+    spotify: "https://open.spotify.com/artist/3E12tRURRvPfHz0hAMCFYc", c1: "#ff5fb8", c2: "#2a1339" },
+  { nombre: "Myke Towers", genero: "Trap / Urbano",
+    spotify: "https://open.spotify.com/artist/7iK8PXO48WeuP03g8YR51W", c1: "#e600ff", c2: "#160a20" },
 ];
 
 /* ---------- Palabras del titular animado del hero ---------- */
@@ -46,8 +65,37 @@ const HERO_WORDS = ["ESPECTÁCULO", "ÚNICO", "EN DIRECTO", "INOLVIDABLE", "VIA 
 function spotifySearchUrl(...parts){
   return "https://open.spotify.com/search/" + encodeURIComponent(parts.join(" "));
 }
+// Enlace de Spotify para un item: el directo y verificado si lo tenemos
+// guardado en los datos, o si no, una búsqueda (funciona igual, solo que
+// no apunta exactamente a esa versión/edición del álbum).
+function spotifyLinkFor(item, ...fallbackParts){
+  return item.spotify || spotifySearchUrl(...fallbackParts);
+}
 function initials(name){
   return name.split(" ").map(w => w[0]).slice(0,2).join("").toUpperCase();
+}
+
+/* ---------- Carátulas/fotos oficiales vía Spotify oEmbed ----------
+   Spotify ofrece este endpoint público precisamente para insertar sus
+   carátulas en webs de terceros — es la vía correcta y legal para mostrar
+   la imagen real sin tener que descargarla ni alojarla nosotros.
+   Si por lo que sea falla (sin red, bloqueada, etc.) el diseño se queda
+   tal cual, con el degradado de color de respaldo. */
+async function applyOfficialArtwork(el, spotifyUrl){
+  if (!spotifyUrl) return;
+  try {
+    const res = await fetch("https://open.spotify.com/oembed?url=" + encodeURIComponent(spotifyUrl));
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data && data.thumbnail_url){
+      el.style.backgroundImage = `linear-gradient(0deg, rgba(10,9,16,.55), rgba(10,9,16,.1)), url("${data.thumbnail_url}")`;
+      el.style.backgroundSize = "cover";
+      el.style.backgroundPosition = "center";
+      el.classList.add("has-cover");
+    }
+  } catch (err) {
+    // Sin conexión al oEmbed o bloqueado — se queda el degradado, sin romper nada.
+  }
 }
 
 /* ---------- NAV: fondo al hacer scroll ---------- */
@@ -208,18 +256,20 @@ document.addEventListener("keydown", (e) => {
           <span>${item.artista}</span>
         </div>
       </div>`;
+    const link = spotifyLinkFor(item, item.titulo, item.artista);
     card.querySelector(".card3d__play").addEventListener("click", (e) => {
       e.stopPropagation();
-      window.open(spotifySearchUrl(item.titulo, item.artista), "_blank", "noopener");
+      window.open(link, "_blank", "noopener");
     });
     card.addEventListener("click", () => {
       if (i === active){
-        window.open(spotifySearchUrl(item.titulo, item.artista), "_blank", "noopener");
+        window.open(link, "_blank", "noopener");
       } else {
         active = i;
         render();
       }
     });
+    applyOfficialArtwork(card.querySelector(".card3d__art"), item.spotify);
     track.appendChild(card);
   });
 
@@ -294,7 +344,7 @@ document.addEventListener("keydown", (e) => {
   CANCIONES.forEach((t, i) => {
     const row = document.createElement("a");
     row.className = "track";
-    row.href = spotifySearchUrl(t.titulo, t.artista);
+    row.href = spotifyLinkFor(t, t.titulo, t.artista);
     row.target = "_blank";
     row.rel = "noopener";
     row.innerHTML = `
@@ -307,6 +357,7 @@ document.addEventListener("keydown", (e) => {
       <span class="track__link" aria-hidden="true">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
       </span>`;
+    applyOfficialArtwork(row.querySelector(".track__art"), t.spotify);
     list.appendChild(row);
   });
 })();
@@ -318,13 +369,14 @@ document.addEventListener("keydown", (e) => {
   ARTISTAS.forEach(a => {
     const item = document.createElement("a");
     item.className = "artist";
-    item.href = spotifySearchUrl(a.nombre);
+    item.href = spotifyLinkFor(a, a.nombre);
     item.target = "_blank";
     item.rel = "noopener";
     item.innerHTML = `
       <span class="artist__photo" style="--c1:${a.c1};--c2:${a.c2}">${initials(a.nombre)}</span>
       <h4>${a.nombre}</h4>
       <span>${a.genero}</span>`;
+    applyOfficialArtwork(item.querySelector(".artist__photo"), a.spotify);
     grid.appendChild(item);
   });
 })();

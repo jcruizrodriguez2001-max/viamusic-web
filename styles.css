@@ -587,6 +587,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   position:relative;
   box-shadow:0 16px 34px rgba(0,0,0,0.45);
 }
+.artist__photo.has-cover{ color:transparent; }
 .artist__photo::after{
   content:"";
   position:absolute; inset:-5px;
