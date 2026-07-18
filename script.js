@@ -106,6 +106,25 @@ function onScrollNav(){
 document.addEventListener("scroll", onScrollNav, { passive:true });
 onScrollNav();
 
+/* ---------- Indicador de sección activa en el nav ---------- */
+(function navScrollSpy(){
+  const sections = Array.from(document.querySelectorAll("main > section[id]"));
+  const links = Array.from(document.querySelectorAll('.nav__links a, .nav__mobile a'));
+  if (!sections.length || !links.length || !("IntersectionObserver" in window)) return;
+
+  const linkFor = (id) => links.filter(a => a.getAttribute("href") === `#${id}`);
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      links.forEach(a => a.classList.remove("is-active"));
+      linkFor(entry.target.id).forEach(a => a.classList.add("is-active"));
+    });
+  }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
+
+  sections.forEach(s => io.observe(s));
+})();
+
 /* ---------- Menú móvil ---------- */
 const burger = document.getElementById("burger");
 const mobileMenu = document.getElementById("mobileMenu");
@@ -275,6 +294,11 @@ document.addEventListener("keydown", (e) => {
 
   const cards = Array.from(track.children);
 
+  // Panel "reproduciendo ahora"
+  const nowTitle = document.getElementById("discoNowTitle");
+  const nowArtist = document.getElementById("discoNowArtist");
+  const nowLink = document.getElementById("discoNowLink");
+
   // Puntos de navegación
   DISCOGRAFIA.forEach((_, i) => {
     const dot = document.createElement("button");
@@ -285,6 +309,12 @@ document.addEventListener("keydown", (e) => {
   const dots = Array.from(dotsWrap.children);
 
   function render(){
+    const current = DISCOGRAFIA[active];
+    if (nowTitle){
+      nowTitle.textContent = current.titulo;
+      nowArtist.textContent = `${current.artista} · ${current.anio}`;
+      nowLink.href = spotifyLinkFor(current, current.titulo, current.artista);
+    }
     cards.forEach((card, i) => {
       let offset = i - active;
       // distancia circular más corta
@@ -340,15 +370,33 @@ document.addEventListener("keydown", (e) => {
 /* ---------- Lista de canciones más escuchadas ---------- */
 (function renderTracks(){
   const list = document.getElementById("tracksList");
+  const featuredWrap = document.getElementById("trackFeatured");
   if (!list) return;
-  CANCIONES.forEach((t, i) => {
+
+  // La primera canción del top se muestra como destacado grande;
+  // el resto entra en la lista compacta de al lado.
+  const [top, ...rest] = CANCIONES;
+
+  if (featuredWrap && top){
+    const link = spotifyLinkFor(top, top.titulo, top.artista);
+    featuredWrap.innerHTML = `
+      <span class="tracks__featured-label">Nº1 esta semana</span>
+      <div class="tracks__featured-art" style="--c1:${top.c1};--c2:${top.c2}"></div>
+      <h3>${top.titulo}</h3>
+      <p>${top.artista}</p>
+      <a href="${link}" target="_blank" rel="noopener" class="btn btn--solid">Escuchar ahora</a>`;
+    applyOfficialArtwork(featuredWrap.querySelector(".tracks__featured-art"), top.spotify);
+  }
+
+  rest.forEach((t, i) => {
     const row = document.createElement("a");
     row.className = "track";
+    row.style.setProperty("--i", i);
     row.href = spotifyLinkFor(t, t.titulo, t.artista);
     row.target = "_blank";
     row.rel = "noopener";
     row.innerHTML = `
-      <span class="track__index">${String(i+1).padStart(2,"0")}</span>
+      <span class="track__index">${String(i+2).padStart(2,"0")}</span>
       <span class="track__art" style="--c1:${t.c1};--c2:${t.c2}"></span>
       <span class="track__body">
         <h4>${t.titulo}</h4>
@@ -366,9 +414,10 @@ document.addEventListener("keydown", (e) => {
 (function renderArtists(){
   const grid = document.getElementById("artistsGrid");
   if (!grid) return;
-  ARTISTAS.forEach(a => {
+  ARTISTAS.forEach((a, i) => {
     const item = document.createElement("a");
     item.className = "artist";
+    item.style.setProperty("--i", i);
     item.href = spotifyLinkFor(a, a.nombre);
     item.target = "_blank";
     item.rel = "noopener";

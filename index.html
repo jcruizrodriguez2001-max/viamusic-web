@@ -79,7 +79,7 @@
 
   <!-- ============ STATS ============ -->
   <section class="stats">
-    <div class="container">
+    <div class="container stats__row">
       <div class="stat"><strong>Desde cero</strong><span>Una promotora que empieza contigo</span></div>
       <div class="stat"><strong>Personalizado</strong><span>Cada evento pensado a tu medida</span></div>
       <div class="stat"><strong>Sin techo</strong><span>Ambición para crecer sin límite</span></div>
@@ -97,17 +97,26 @@
       </div>
 
       <div class="carousel reveal">
-        <div class="carousel__stage">
-          <div class="carousel__track" id="discoTrack"></div>
+        <div class="carousel__now" id="discoNow" aria-live="polite">
+          <span class="carousel__now-label">Reproduciendo</span>
+          <h3 id="discoNowTitle"></h3>
+          <p id="discoNowArtist"></p>
+          <a href="#" id="discoNowLink" class="btn btn--ghost" target="_blank" rel="noopener">Escuchar en Spotify →</a>
         </div>
-        <div class="carousel__nav">
-          <button class="carousel__btn" id="discoPrev" aria-label="Anterior">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="carousel__dots" id="discoDots"></div>
-          <button class="carousel__btn" id="discoNext" aria-label="Siguiente">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+
+        <div class="carousel__main">
+          <div class="carousel__stage">
+            <div class="carousel__track" id="discoTrack"></div>
+          </div>
+          <div class="carousel__nav">
+            <button class="carousel__btn" id="discoPrev" aria-label="Anterior">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="carousel__dots" id="discoDots"></div>
+            <button class="carousel__btn" id="discoNext" aria-label="Siguiente">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -118,7 +127,7 @@
   </div>
 
   <!-- ============ CANCIONES MÁS ESCUCHADAS ============ -->
-  <section id="canciones">
+  <section id="canciones" class="canciones-tint">
     <div class="container">
       <div class="section-head reveal">
         <p class="eyebrow">Top del momento</p>
@@ -126,12 +135,15 @@
         <p>Lo que más suena esta semana entre nuestro roster. Actualizado con cada gira.</p>
       </div>
 
-      <div class="tracks__list reveal" id="tracksList"></div>
+      <div class="tracks reveal--stagger reveal">
+        <div class="tracks__featured" id="trackFeatured"></div>
+        <div class="tracks__list" id="tracksList"></div>
+      </div>
     </div>
   </section>
 
   <!-- ============ ARTISTAS ============ -->
-  <section id="artistas">
+  <section id="artistas" class="artistas-tint">
     <div class="container">
       <div class="section-head reveal">
         <p class="eyebrow">Roster VIA</p>
@@ -139,7 +151,7 @@
         <p>Las voces que llenan recintos y encabezan nuestros festivales.</p>
       </div>
 
-      <div class="artists__grid reveal" id="artistsGrid"></div>
+      <div class="artists__grid reveal--stagger reveal" id="artistsGrid"></div>
     </div>
   </section>
 
@@ -257,6 +269,11 @@
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="container">
+    <div class="footer__cta">
+      <h3>¿Montamos algo grande?</h3>
+      <a href="mailto:hola@viamusic.es" class="footer__cta-link">hola@viamusic.es <span aria-hidden="true">→</span></a>
+    </div>
+
     <div class="footer__top">
       <a href="#top" class="footer__logo" aria-label="VIA MUSIC — Inicio">
         <img src="assets/logo-mono-blanco.svg" alt="VIA MUSIC">
