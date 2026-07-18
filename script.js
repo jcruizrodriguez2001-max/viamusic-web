@@ -65,9 +65,6 @@ const ARTISTAS = [
     spotify: "https://open.spotify.com/artist/7iK8PXO48WeuP03g8YR51W", c1: "#e600ff", c2: "#160a20" },
 ];
 
-/* ---------- Palabras del titular animado del hero ---------- */
-const HERO_WORDS = ["ESPECTÁCULO", "ÚNICO", "EN DIRECTO", "INOLVIDABLE", "VIA MUSIC"];
-
 /* ============================================================
    A partir de aquí es lógica de la web — no hace falta tocarlo.
    ============================================================ */
@@ -166,29 +163,26 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-/* ---------- Titular del hero: palabras que van cambiando ----------
-   El tamaño ya no se calcula por JS: el CSS reserva una escala fija que
-   cabe siempre, así que esto solo se encarga de cambiar el texto y
-   reiniciar las dos animaciones (palabra + barra) en cada ciclo. */
-(function heroWordCycler(){
-  const el = document.getElementById("heroWord");
-  const bar = document.querySelector(".hero__word-bar");
-  if (!el) return;
+/* ---------- Hero: spotlight que sigue al ratón ----------
+   Solo en dispositivos con puntero fino (ratón); en táctil no aporta nada
+   y solo consumiría batería sin motivo. */
+(function heroSpotlight(){
+  const hero = document.getElementById("heroSection");
+  if (!hero || !window.matchMedia("(pointer: fine)").matches) return;
+  hero.addEventListener("pointermove", (e) => {
+    const r = hero.getBoundingClientRect();
+    hero.style.setProperty("--sx", `${((e.clientX - r.left) / r.width) * 100}%`);
+    hero.style.setProperty("--sy", `${((e.clientY - r.top) / r.height) * 100}%`);
+  });
+})();
 
-  let i = 0;
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduced) return;
-
-  setInterval(() => {
-    i = (i + 1) % HERO_WORDS.length;
-    el.style.animation = "none";
-    if (bar) bar.style.animation = "none";
-    // fuerza reflow para poder reiniciar ambas animaciones a la vez
-    void el.offsetWidth;
-    el.textContent = HERO_WORDS[i];
-    el.style.animation = "";
-    if (bar) bar.style.animation = "";
-  }, 2200);
+/* ---------- Hero: chip "sonando ahora" con dato real ----------
+   Usa la misma canción Nº1 que ya mostramos en Canciones — no es un
+   texto de relleno, es el mismo dato real de Spotify. */
+(function heroLive(){
+  const el = document.getElementById("heroLiveTrack");
+  if (!el || !CANCIONES[0]) return;
+  el.textContent = `${CANCIONES[0].titulo} — ${CANCIONES[0].artista}`;
 })();
 
 /* ---------- Scroll reveal genérico ---------- */
