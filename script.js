@@ -15,10 +15,14 @@ const DISCOGRAFIA = [
     spotify: "https://open.spotify.com/album/3goLwu2fkSSmghikOcVufU" },
   { titulo: "DeBÍ TiRAR MáS FOToS", artista: "Bad Bunny", anio: "2025", c1: "#ff33a8", c2: "#1c0f28",
     spotify: "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb" },
-  { titulo: "Buenas Noches", artista: "Quevedo", anio: "2025", c1: "#c400ff", c2: "#1c0f28" },
-  { titulo: "Daisy", artista: "Rusowsky", anio: "2026", c1: "#ff0092", c2: "#241238" },
-  { titulo: "El Día Que Me Olvides", artista: "Walls", anio: "2026", c1: "#ff5fb8", c2: "#2a1339" },
-  { titulo: "How Did I Get Here?", artista: "Louis Tomlinson", anio: "2026", c1: "#e600ff", c2: "#160a20" },
+  { titulo: "Buenas Noches", artista: "Quevedo", anio: "2025", c1: "#c400ff", c2: "#1c0f28",
+    spotify: "https://open.spotify.com/album/3V2ApPxUSquOkjLQU3wmjh" },
+  { titulo: "Daisy", artista: "Rusowsky", anio: "2026", c1: "#ff0092", c2: "#241238",
+    spotify: "https://open.spotify.com/album/0o1RGF3A02UN1aVAX1SLuQ" },
+  { titulo: "El Día Que Me Olvides", artista: "Walls", anio: "2026", c1: "#ff5fb8", c2: "#2a1339",
+    spotify: "https://open.spotify.com/album/5dr5f9aeHuDORZXkJIQWGB" },
+  { titulo: "How Did I Get Here?", artista: "Louis Tomlinson", anio: "2026", c1: "#e600ff", c2: "#160a20",
+    spotify: "https://open.spotify.com/album/5Ihp8gEWnduyUdUqcxqkzB" },
 ];
 
 /* ---------- DATOS: canciones más escuchadas ----------
@@ -35,6 +39,12 @@ const CANCIONES = [
     spotify: "https://open.spotify.com/track/1tz7RZirwiuaJw2p0jbdHb", c1: "#ff0092", c2: "#241238" },
   { titulo: "MUCHACHA", artista: "Aissa",
     spotify: "https://open.spotify.com/track/4rDCRcln8WCHWPRt0YTFLs", c1: "#ff5fb8", c2: "#2a1339" },
+  { titulo: "NUEVAYoL", artista: "Bad Bunny",
+    spotify: "https://open.spotify.com/track/5TFD2bmFKGhoCRbX61nXY5", c1: "#e600ff", c2: "#160a20" },
+  { titulo: "SUPERESTRELLA", artista: "Aitana",
+    spotify: "https://open.spotify.com/track/6hpuesKPNa3WhV48O7Fa47", c1: "#ff33a8", c2: "#3d1f52" },
+  { titulo: "De Lejitos", artista: "Jay Wheeler",
+    spotify: "https://open.spotify.com/track/3r2ZoCWlf9RewWlxxozfQ8", c1: "#c400ff", c2: "#241238" },
 ];
 
 /* ---------- DATOS: artistas más escuchados ----------
@@ -156,76 +166,28 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-/* ---------- Titular del hero: palabras que van cambiando ---------- */
+/* ---------- Titular del hero: palabras que van cambiando ----------
+   El tamaño ya no se calcula por JS: el CSS reserva una escala fija que
+   cabe siempre, así que esto solo se encarga de cambiar el texto y
+   reiniciar las dos animaciones (palabra + barra) en cada ciclo. */
 (function heroWordCycler(){
-  const titleEl = document.querySelector(".hero__title");
-  const wrapEl = document.querySelector(".hero__word-wrap");
   const el = document.getElementById("heroWord");
-  if (!el || !titleEl || !wrapEl) return;
-
-  // Sonda invisible con la misma tipografía que la palabra animada,
-  // para medir cuánto ocupa cada palabra candidata sin pintarla en pantalla.
-  const probe = document.createElement("span");
-  probe.style.position = "absolute";
-  probe.style.visibility = "hidden";
-  probe.style.whiteSpace = "nowrap";
-  probe.style.left = "-9999px";
-  probe.style.top = "0";
-  document.body.appendChild(probe);
-
-  // Calculamos UNA sola escala fija, la que hace falta para que quepa la
-  // palabra más larga de la lista. Se aplica igual a todas las palabras —
-  // así ninguna crece para "llenar" la línea, todas miden lo mismo y
-  // quedan siempre ancladas al margen izquierdo, sin moverse ni un pixel
-  // de una palabra a otra.
-  function fitAll(){
-    wrapEl.style.setProperty("--hero-scale", 1);
-    const available = titleEl.getBoundingClientRect().width;
-    const cs = getComputedStyle(el);
-    probe.style.fontFamily = cs.fontFamily;
-    probe.style.fontWeight = cs.fontWeight;
-    probe.style.fontSize = cs.fontSize;
-    probe.style.letterSpacing = cs.letterSpacing;
-    probe.style.textTransform = cs.textTransform;
-
-    let maxWidth = 0;
-    HERO_WORDS.forEach(word => {
-      probe.textContent = word;
-      maxWidth = Math.max(maxWidth, probe.getBoundingClientRect().width);
-    });
-
-    const scale = maxWidth > available && maxWidth > 0
-      ? Math.max(0.32, (available / maxWidth) * 0.97)
-      : 1;
-    wrapEl.style.setProperty("--hero-scale", scale);
-  }
+  const bar = document.querySelector(".hero__word-bar");
+  if (!el) return;
 
   let i = 0;
-  function applyWord(){
-    el.textContent = HERO_WORDS[i];
-  }
-  applyWord();
-
-  if (document.fonts && document.fonts.ready){
-    document.fonts.ready.then(fitAll);
-  }
-  fitAll();
-
-  let resizeTimer;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(fitAll, 150);
-  });
-
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduced) return;
+
   setInterval(() => {
     i = (i + 1) % HERO_WORDS.length;
     el.style.animation = "none";
-    // fuerza reflow para poder reiniciar la animación
+    if (bar) bar.style.animation = "none";
+    // fuerza reflow para poder reiniciar ambas animaciones a la vez
     void el.offsetWidth;
-    applyWord();
+    el.textContent = HERO_WORDS[i];
     el.style.animation = "";
+    if (bar) bar.style.animation = "";
   }, 2200);
 })();
 
