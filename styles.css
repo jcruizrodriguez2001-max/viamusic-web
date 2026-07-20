@@ -223,11 +223,13 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 }
 
 /* ============ HERO ============ */
+/* Composición asimétrica tipo cartel de concierto: la franja superior
+   lleva el dato en vivo, el titular se ancla abajo dejando aire arriba
+   a la derecha para el sash — no es el stack centrado típico de landing. */
 .hero{
   min-height:100svh;
   display:flex;
   flex-direction:column;
-  justify-content:center;
   padding-top:120px;
   position:relative;
   isolation:isolate;
@@ -246,12 +248,11 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 .hero__beam{
   position:absolute;
   top:-20%;
-  width:38vw;
-  min-width:340px;
+  width:34vw;
+  min-width:320px;
   height:160%;
-  background:linear-gradient(180deg, rgba(255,0,146,0.16), rgba(255,0,146,0) 70%);
+  background:linear-gradient(180deg, rgba(255,0,146,0.22) 0%, rgba(255,0,146,0.05) 55%, rgba(255,0,146,0) 75%);
   transform:rotate(18deg);
-  filter:blur(2px);
   animation:beamSway 12s ease-in-out infinite;
 }
 .hero__beam--1{ left:-4%; animation-delay:0s; }
@@ -298,28 +299,73 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   .hero__in{ animation:none; opacity:1; transform:none; }
 }
 
+.hero__content{
+  position:relative; z-index:2;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  padding-bottom:clamp(56px, 8vw, 96px);
+}
+
+.hero__top{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:20px 28px;
+}
+.hero__kicker{
+  font-family:var(--font-body);
+  font-weight:900;
+  font-size:0.78rem;
+  letter-spacing:0.24em;
+  text-transform:uppercase;
+  color:var(--muted-dim);
+}
+
+/* El bloque principal se empuja al fondo con margin-top:auto: deja un
+   hueco arriba a la derecha (donde vive el sash) en vez de centrar todo
+   verticalmente — composición de cartel, no de slide de producto. */
+.hero__main{ margin-top:auto; padding-top:56px; }
+
 .hero__title{
-  font-size:clamp(3rem, 9vw, 7.2rem);
-  line-height:0.94;
-  margin-top:22px;
+  font-size:clamp(3.1rem, 10vw, 8rem);
+  line-height:0.92;
   text-transform:uppercase;
   text-align:left;
 }
 .hero__title .line{ display:block; }
+
+/* Titular de impacto: textura de cinta de escenario (rayas diagonales
+   magenta) recortada al texto, en vez del gradiente de dos tonos que
+   ya lleva todo el mundo. Se mueve despacio, como un letrero de neón,
+   no como un efecto llamativo sin motivo. */
 .hero__title-accent{
-  background:linear-gradient(90deg, var(--magenta) 0%, var(--magenta-soft) 25%, var(--magenta) 50%, var(--magenta-soft) 75%, var(--magenta) 100%);
-  background-size:250% 100%;
+  background-image:repeating-linear-gradient(
+    115deg,
+    var(--magenta) 0 22px,
+    var(--magenta-soft) 22px 30px,
+    var(--magenta) 30px 52px
+  );
+  background-size:240% 100%;
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
-  animation:titleShimmer 7s ease-in-out infinite;
+  animation:titleTape 16s linear infinite;
 }
-@keyframes titleShimmer{
-  0%,100%{ background-position:0% 0%; }
-  50%{ background-position:100% 0%; }
+@keyframes titleTape{
+  from{ background-position:0% 0%; }
+  to{ background-position:-240% 0%; }
 }
 @media (prefers-reduced-motion: reduce){
   .hero__title-accent{ animation:none; background-position:0% 0%; }
+}
+
+.hero__bottom{
+  margin-top:40px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:end;
+  gap:40px 56px;
 }
 
 /* Foco que sigue al ratón — un guiño sutil, no un efecto gratuito:
@@ -338,7 +384,6 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   display:inline-flex;
   align-items:center;
   gap:10px;
-  margin-top:32px;
   padding:10px 18px 10px 14px;
   border:1px solid var(--line);
   border-radius:999px;
@@ -361,52 +406,62 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   50%{ opacity:.6; box-shadow:0 0 0 5px rgba(255,0,146,0); }
 }
 
-/* Marquesina infinita — mismas palabras de marca, ahora como textura de
-   fondo en movimiento continuo en vez de un único valor que rota y que
-   había que estar reajustando. Nunca se detiene, nunca se recalcula. */
-.hero__marquee{
+/* Sash — banda diagonal de esquina, motivo real de cartel de festival
+   (la pegatina "AGOTADO" / "NUEVA FECHA"), no una marquesina de landing.
+   Fondo oscuro + borde magenta para no chocar con AA sobre magenta sólido. */
+.hero__sash{
   position:absolute;
-  left:0; right:0; bottom:78px;
+  top:96px; right:-140px;
+  width:560px;
+  transform:rotate(8deg);
+  z-index:1;
   overflow:hidden;
-  -webkit-mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  border-top:1px solid rgba(255,0,146,0.4);
+  border-bottom:1px solid rgba(255,0,146,0.4);
+  background:rgba(19,16,25,0.72);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
 }
-.hero__marquee-track{
+.hero__sash-track{
   display:flex;
   align-items:center;
-  gap:28px;
+  gap:20px;
   width:max-content;
   white-space:nowrap;
-  animation:marqueeScroll 26s linear infinite;
+  padding:9px 0;
+  animation:marqueeScroll 22s linear infinite;
   font-family:var(--font-display);
-  font-weight:800;
-  font-size:clamp(1.4rem, 3vw, 2.2rem);
+  font-weight:700;
+  font-size:0.82rem;
+  letter-spacing:0.14em;
   text-transform:uppercase;
-  color:transparent;
-  -webkit-text-stroke:1px rgba(247,245,248,0.16);
+  color:var(--white);
 }
-.hero__marquee-dot{ font-size:0.5em; color:rgba(255,0,146,0.35); -webkit-text-stroke:0; }
+.hero__sash-dot{ color:var(--magenta); font-size:0.6em; }
 @keyframes marqueeScroll{
   from{ transform:translateX(0); }
   to{ transform:translateX(-50%); }
 }
 @media (prefers-reduced-motion: reduce){
-  .hero__marquee-track{ animation:none; }
+  .hero__sash-track{ animation:none; }
+}
+@media (max-width: 760px){
+  .hero__sash{ top:78px; right:-160px; width:460px; }
+  .hero__sash-track{ font-size:0.72rem; }
 }
 
 .hero__sub{
-  margin-top:30px;
   max-width:46ch;
   font-size:1.15rem;
   color:var(--muted);
 }
 
 .hero__actions{
-  margin-top:44px;
   display:flex;
   align-items:center;
   gap:28px;
   flex-wrap:wrap;
+  justify-self:start;
 }
 
 .btn{
@@ -442,25 +497,55 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 }
 .btn--ghost:hover{ border-color:var(--magenta); color:var(--magenta-soft); }
 
+/* Insignia de scroll circular — guiño a un sello/vinilo girando, no la
+   típica línea con "Scroll" que ya ha visto todo el mundo. Sigue siendo
+   un link real, con aria-label, foco visible y target de 44px. */
 .hero__scroll{
   position:absolute;
-  bottom:36px; left:var(--pad);
-  display:flex; align-items:center; gap:12px;
-  font-size:0.78rem;
-  letter-spacing:0.18em;
-  text-transform:uppercase;
+  bottom:28px; right:var(--pad);
+  z-index:2;
+}
+.hero__scroll-badge{
+  position:relative;
+  display:flex; align-items:center; justify-content:center;
+  width:76px; height:76px;
+  border-radius:50%;
   color:var(--muted-dim);
+  transition:color .25s ease, transform .25s ease;
 }
-.hero__scroll-line{
-  width:1px; height:40px;
-  background:linear-gradient(var(--magenta), transparent);
-  animation:scrollLine 1.8s ease-in-out infinite;
+.hero__scroll:hover .hero__scroll-badge,
+.hero__scroll:focus-visible .hero__scroll-badge{
+  color:var(--magenta-soft);
+  transform:scale(1.06);
 }
-@keyframes scrollLine{
-  0%{ transform:scaleY(0); transform-origin:top; }
-  50%{ transform:scaleY(1); transform-origin:top; }
-  50.01%{ transform-origin:bottom; }
-  100%{ transform:scaleY(0); transform-origin:bottom; }
+.hero__scroll-ring{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  fill:currentColor;
+  font-family:var(--font-body);
+  font-size:9.4px;
+  font-weight:900;
+  letter-spacing:0.12em;
+  animation:scrollRingSpin 13s linear infinite;
+}
+@keyframes scrollRingSpin{
+  from{ transform:rotate(0deg); }
+  to{ transform:rotate(360deg); }
+}
+.hero__scroll-arrow{
+  position:relative;
+  animation:scrollArrowNudge 1.8s ease-in-out infinite;
+}
+@keyframes scrollArrowNudge{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(4px); }
+}
+@media (prefers-reduced-motion: reduce){
+  .hero__scroll-ring{ animation:none; }
+  .hero__scroll-arrow{ animation:none; }
+}
+@media (max-width: 760px){
+  .hero__scroll{ display:none; }
 }
 
 /* ============ STATS ============ */
@@ -1029,7 +1114,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   .artist:first-child{ grid-column:1 / 3; grid-row:auto; flex-direction:row; justify-content:flex-start; text-align:left; padding:20px; }
   .artist:first-child .artist__photo{ width:96px; height:96px; font-size:1.7rem; margin:0; flex-shrink:0; }
   .footer__cta{ align-items:flex-start; flex-direction:column; }
-  .hero__marquee{ bottom:56px; opacity:.6; }
-  .hero__marquee-track{ font-size:1.1rem; gap:18px; }
+  .hero__bottom{ grid-template-columns:1fr; align-items:start; }
+  .hero__actions{ justify-self:stretch; }
   .hero__live{ font-size:0.78rem; }
 }

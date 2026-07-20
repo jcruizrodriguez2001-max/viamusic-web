@@ -58,42 +58,59 @@
     </div>
     <div class="hero__spotlight" aria-hidden="true"></div>
 
+    <!-- Sash: motivo de cartel de concierto (banda diagonal), no de dashboard -->
+    <div class="hero__sash" aria-hidden="true">
+      <div class="hero__sash-track">
+        <span>EN DIRECTO</span><span class="hero__sash-dot">●</span>
+        <span>VIA MUSIC</span><span class="hero__sash-dot">●</span>
+        <span>TEMPORADA 26</span><span class="hero__sash-dot">●</span>
+        <span>EN DIRECTO</span><span class="hero__sash-dot">●</span>
+        <span>VIA MUSIC</span><span class="hero__sash-dot">●</span>
+        <span>TEMPORADA 26</span><span class="hero__sash-dot">●</span>
+      </div>
+    </div>
+
     <div class="container hero__content">
-      <p class="eyebrow hero__in hero__in--1">Promotora musical · Conciertos y festivales</p>
-      <h1 class="hero__title hero__in hero__in--2">
-        <span class="line">ESTO ES</span>
-        <span class="line hero__title-accent">ESPECTÁCULO</span>
-      </h1>
-      <p class="hero__sub hero__in hero__in--3">Diseñamos, producimos y llevamos a escena los conciertos y festivales que la gente recuerda toda la vida. De la primera idea al último aplauso.</p>
-
-      <div class="hero__actions hero__in hero__in--4">
-        <a href="#discografia" class="btn btn--solid">Descubre el cartel</a>
-        <a href="#contacto" class="btn btn--ghost">Trae tu evento a VIA →</a>
+      <div class="hero__top hero__in hero__in--1">
+        <a href="#canciones" class="hero__live" id="heroLive">
+          <span class="hero__live-dot" aria-hidden="true"></span>
+          <span>Sonando ahora: <strong id="heroLiveTrack">—</strong></span>
+        </a>
+        <span class="hero__kicker">Promotora musical · Conciertos y festivales</span>
       </div>
 
-      <a href="#canciones" class="hero__live hero__in hero__in--5" id="heroLive">
-        <span class="hero__live-dot" aria-hidden="true"></span>
-        <span>Sonando ahora: <strong id="heroLiveTrack">—</strong></span>
-      </a>
-    </div>
+      <div class="hero__main">
+        <h1 class="hero__title">
+          <span class="line hero__in hero__in--2">ESTO ES</span>
+          <span class="line hero__title-accent hero__in hero__in--3">ESPECTÁCULO</span>
+        </h1>
 
-    <div class="hero__marquee" aria-hidden="true">
-      <div class="hero__marquee-track">
-        <span>ÚNICO</span><span class="hero__marquee-dot">●</span>
-        <span>EN DIRECTO</span><span class="hero__marquee-dot">●</span>
-        <span>INOLVIDABLE</span><span class="hero__marquee-dot">●</span>
-        <span>VIA MUSIC</span><span class="hero__marquee-dot">●</span>
-        <span>ÚNICO</span><span class="hero__marquee-dot">●</span>
-        <span>EN DIRECTO</span><span class="hero__marquee-dot">●</span>
-        <span>INOLVIDABLE</span><span class="hero__marquee-dot">●</span>
-        <span>VIA MUSIC</span><span class="hero__marquee-dot">●</span>
+        <div class="hero__bottom">
+          <p class="hero__sub hero__in hero__in--4">Diseñamos, producimos y llevamos a escena los conciertos y festivales que la gente recuerda toda la vida. De la primera idea al último aplauso.</p>
+
+          <div class="hero__actions hero__in hero__in--5">
+            <a href="#discografia" class="btn btn--solid">Descubre el cartel</a>
+            <a href="#contacto" class="btn btn--ghost">Trae tu evento a VIA →</a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="hero__scroll hero__in hero__in--6" aria-hidden="true">
-      <span>Desliza</span>
-      <span class="hero__scroll-line"></span>
-    </div>
+    <a href="#discografia" class="hero__scroll hero__in hero__in--6" aria-label="Bajar a la discografía">
+      <span class="hero__scroll-badge">
+        <svg class="hero__scroll-ring" viewBox="0 0 120 120" aria-hidden="true">
+          <defs>
+            <path id="scrollRingPath" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"></path>
+          </defs>
+          <text>
+            <textPath href="#scrollRingPath" startOffset="0%">DESLIZA · DESLIZA · DESLIZA · </textPath>
+          </text>
+        </svg>
+        <svg class="hero__scroll-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
   </section>
 
   <!-- ============ STATS ============ -->
