@@ -57,43 +57,58 @@
 
 <main id="top">
 
-  <!-- ============ HERO ============ -->
+  <!-- ============ HERO — cartel/póster ============ -->
   <section class="hero" id="heroSection">
-    <div class="hero__stage" aria-hidden="true">
-      <div class="hero__beam hero__beam--1"></div>
-      <div class="hero__beam hero__beam--2"></div>
-      <div class="hero__beam hero__beam--3"></div>
-      <div class="hero__grain"></div>
-      <div class="hero__crowd"></div>
+    <div class="hero__bg" aria-hidden="true">
+      <svg class="hero__waves" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="wg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff0092" stop-opacity="0.9"/>
+            <stop offset="1" stop-color="#ff0092" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <g class="hero__waves-g" stroke="url(#wg)" fill="none" stroke-width="1.5"></g>
+      </svg>
+      <div class="hero__noise"></div>
     </div>
-    <div class="hero__spotlight" aria-hidden="true"></div>
-    <span class="hero__ghost" aria-hidden="true">26</span>
 
-    <div class="container hero__content">
-      <a href="#canciones" class="hero__live hero__in hero__in--1" id="heroLive">
-        <span class="hero__live-dot" aria-hidden="true"></span>
-        <span>Sonando ahora: <strong id="heroLiveTrack">—</strong></span>
-      </a>
+    <div class="hero__grid container">
+      <!-- Columna izquierda: ficha de cartel -->
+      <aside class="hero__meta" aria-hidden="true">
+        <span class="hero__meta-line">VIA / MUSIC</span>
+        <span class="hero__meta-line">PROMOTORA EN DIRECTO</span>
+        <span class="hero__meta-line hero__meta-line--accent">TEMPORADA ’26</span>
+      </aside>
 
-      <h1 class="hero__title">
-        <span class="line hero__in hero__in--2">ESTO ES</span>
-        <span class="line hero__title-accent hero__in hero__in--3">ESPECTÁCULO</span>
-      </h1>
+      <!-- Bloque central: titular de póster -->
+      <div class="hero__poster">
+        <h1 class="hero__title">
+          <span class="hero__word hero__word--haz hero__reveal" style="--d:0">HAZ</span>
+          <span class="hero__word hero__word--ruido hero__reveal" style="--d:1">RUIDO</span>
+          <span class="hero__word hero__word--en hero__reveal" style="--d:2">EN</span>
+          <span class="hero__word hero__word--directo hero__reveal" style="--d:3">DIRECTO</span>
+        </h1>
 
-      <div class="hero__bottom">
-        <p class="hero__sub hero__in hero__in--4">Diseñamos, producimos y llevamos a escena los conciertos y festivales que la gente recuerda toda la vida. De la primera idea al último aplauso.</p>
-
-        <div class="hero__actions hero__in hero__in--5">
-          <a href="#discografia" class="btn btn--solid" data-magnetic>Descubre el cartel</a>
-          <a href="#contacto" class="btn btn--ghost">Trae tu evento a VIA →</a>
+        <div class="hero__foot">
+          <p class="hero__lede hero__reveal" style="--d:4">Promotora de conciertos y festivales. De la primera idea al último aplauso: booking, producción y escenario.</p>
+          <div class="hero__cta hero__reveal" style="--d:5">
+            <a href="#discografia" class="btn btn--solid" data-magnetic>Ver el cartel</a>
+            <a href="#contacto" class="btn btn--ghost">Trae tu evento →</a>
+          </div>
         </div>
       </div>
     </div>
 
-    <a href="#discografia" class="hero__scroll hero__in hero__in--6" aria-label="Bajar a la discografía">
-      <svg width="14" height="24" viewBox="0 0 14 24" fill="none" aria-hidden="true">
-        <path d="M7 1v19M7 20l-5.5-5.5M7 20l5.5-5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+    <!-- Banda inferior: dato real en marquesina, motivo de cartel -->
+    <a href="#canciones" class="hero__band" aria-label="Ir a las canciones más escuchadas">
+      <div class="hero__band-track">
+        <span class="hero__band-live"><i class="hero__band-dot" aria-hidden="true"></i>SONANDO AHORA</span>
+        <strong id="heroLiveTrack">—</strong>
+        <span class="hero__band-sep" aria-hidden="true">✳</span>
+        <span class="hero__band-live"><i class="hero__band-dot" aria-hidden="true"></i>SONANDO AHORA</span>
+        <strong aria-hidden="true">—</strong>
+        <span class="hero__band-sep" aria-hidden="true">✳</span>
+      </div>
     </a>
   </section>
 
