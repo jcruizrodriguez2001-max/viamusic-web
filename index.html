@@ -59,38 +59,45 @@
 
   <!-- ============ HERO — foto a pantalla completa ============ -->
   <section class="hero" id="heroSection">
-    <div class="hero__photo" aria-hidden="true">
+    <div class="hero__photo" aria-hidden="true" data-parallax>
       <img src="assets/hero-concierto.jpg" alt="" fetchpriority="high" width="2400" height="1307">
     </div>
     <div class="hero__scrim" aria-hidden="true"></div>
     <div class="hero__noise" aria-hidden="true"></div>
 
     <div class="hero__grid container">
-      <!-- Columna izquierda: ficha de cartel -->
       <aside class="hero__meta" aria-hidden="true">
         <span class="hero__meta-line">VIA / MUSIC</span>
         <span class="hero__meta-line">PROMOTORA EN DIRECTO</span>
         <span class="hero__meta-line hero__meta-line--accent">TEMPORADA ’26</span>
       </aside>
 
-      <!-- Bloque central: titular de póster -->
       <div class="hero__poster">
         <h1 class="hero__title">
-          <span class="hero__word hero__word--haz hero__reveal" style="--d:0">HAZ</span>
-          <span class="hero__word hero__word--ruido hero__reveal" style="--d:1">RUIDO</span>
-          <span class="hero__word hero__word--en hero__reveal" style="--d:2">EN</span>
-          <span class="hero__word hero__word--directo hero__reveal" style="--d:3">DIRECTO</span>
+          <span class="hero__line hero__line--1">
+            <span class="hero__word hero__word--haz" data-reveal>HAZ</span>
+            <span class="hero__word hero__word--ruido" data-reveal>RUIDO</span>
+          </span>
+          <span class="hero__line hero__line--2">
+            <span class="hero__word hero__word--en" data-reveal>EN</span>
+            <span class="hero__word hero__word--directo" data-reveal>DIRECTO</span>
+          </span>
         </h1>
 
         <div class="hero__foot">
-          <p class="hero__lede hero__reveal" style="--d:4">Promotora de conciertos y festivales. De la primera idea al último aplauso: booking, producción y escenario.</p>
-          <div class="hero__cta hero__reveal" style="--d:5">
+          <p class="hero__lede" data-reveal>Promotora de conciertos y festivales — de la primera idea al último aplauso: booking, producción y escenario.</p>
+          <div class="hero__cta" data-reveal>
             <a href="#contacto" class="btn btn--solid" data-magnetic>Trae tu evento</a>
             <a href="#discografia" class="btn btn--ghost">Ver a los artistas →</a>
           </div>
         </div>
       </div>
     </div>
+
+    <a href="#discografia" class="hero__scroll" aria-label="Bajar a la siguiente sección">
+      <span class="hero__scroll-txt">Scroll</span>
+      <span class="hero__scroll-rail"><span class="hero__scroll-dot"></span></span>
+    </a>
   </section>
 
   <!-- ============ STATS ============ -->

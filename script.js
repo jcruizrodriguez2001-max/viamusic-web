@@ -163,7 +163,49 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-/* ---------- Hero: (fondo con foto, sin generador de ondas) ---------- */
+/* ---------- Hero: reveal de entrada + parallax de la foto ----------
+   1) Reveal: al cargar, cada elemento [data-reveal] del hero sube desde
+      su máscara en cascada. No espera a scroll — es lo primero que se ve.
+   2) Parallax: la foto de fondo se mueve más despacio que el scroll,
+      dando profundidad. Se calcula en rAF para no bloquear el hilo. */
+(function heroMotion(){
+  const hero = document.getElementById("heroSection");
+  if (!hero) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // 1) Reveal en cascada
+  const items = hero.querySelectorAll("[data-reveal]");
+  if (reduce){
+    items.forEach(el => el.classList.add("is-revealed"));
+  } else {
+    items.forEach((el, i) => {
+      el.style.transitionDelay = `${0.12 + i * 0.08}s`;
+    });
+    // Espera a que la fuente/imagen pinten un frame antes de disparar
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      items.forEach(el => el.classList.add("is-revealed"));
+    }));
+  }
+
+  // 2) Parallax de la foto
+  if (reduce) return;
+  const photo = hero.querySelector("[data-parallax]");
+  if (!photo) return;
+  let ticking = false;
+  function update(){
+    const y = window.scrollY;
+    const rect = hero.getBoundingClientRect();
+    // Solo mientras el hero está a la vista
+    if (rect.bottom > 0){
+      photo.style.transform = `translateY(${y * 0.28}px)`;
+    }
+    ticking = false;
+  }
+  window.addEventListener("scroll", () => {
+    if (!ticking){ requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  update();
+})();
 
 /* ---------- Botón magnético ----------
    El CTA principal se deja "atraer" un poco por el cursor dentro de un
