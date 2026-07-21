@@ -185,6 +185,28 @@ document.addEventListener("keydown", (e) => {
   el.textContent = `${CANCIONES[0].titulo} — ${CANCIONES[0].artista}`;
 })();
 
+/* ---------- Botón magnético ----------
+   El CTA principal se deja "atraer" un poco por el cursor dentro de un
+   radio corto. Solo en puntero fino y sin reduced-motion: es un guiño,
+   no debe molestar a quien navega por teclado o con lector de pantalla
+   (el elemento sigue siendo un <a> normal, foco y click intactos). */
+(function magneticButtons(){
+  if (!window.matchMedia("(pointer: fine)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll("[data-magnetic]").forEach((btn) => {
+    const strength = 0.35;
+    btn.addEventListener("pointermove", (e) => {
+      const r = btn.getBoundingClientRect();
+      const relX = e.clientX - (r.left + r.width / 2);
+      const relY = e.clientY - (r.top + r.height / 2);
+      btn.style.transform = `translate(${relX * strength}px, ${relY * strength}px)`;
+    });
+    btn.addEventListener("pointerleave", () => {
+      btn.style.transform = "translate(0, 0)";
+    });
+  });
+})();
+
 /* ---------- Scroll reveal genérico ---------- */
 (function scrollReveal(){
   const items = document.querySelectorAll(".reveal");

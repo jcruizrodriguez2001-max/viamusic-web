@@ -18,6 +18,16 @@
 
 <!-- ============ NAV ============ -->
 <header class="nav" id="nav">
+  <div class="nav__ticker" aria-hidden="true">
+    <div class="nav__ticker-track">
+      <span>TEMPORADA 26</span><span class="nav__ticker-dot">●</span>
+      <span>NUEVAS FECHAS PRÓXIMAMENTE</span><span class="nav__ticker-dot">●</span>
+      <span>VIA MUSIC — EN DIRECTO</span><span class="nav__ticker-dot">●</span>
+      <span>TEMPORADA 26</span><span class="nav__ticker-dot">●</span>
+      <span>NUEVAS FECHAS PRÓXIMAMENTE</span><span class="nav__ticker-dot">●</span>
+      <span>VIA MUSIC — EN DIRECTO</span><span class="nav__ticker-dot">●</span>
+    </div>
+  </div>
   <div class="nav__inner">
     <a href="#top" class="nav__logo" aria-label="VIA MUSIC — Inicio">
       <img src="assets/logo-principal.svg" alt="VIA MUSIC">
@@ -57,59 +67,33 @@
       <div class="hero__crowd"></div>
     </div>
     <div class="hero__spotlight" aria-hidden="true"></div>
-
-    <!-- Sash: motivo de cartel de concierto (banda diagonal), no de dashboard -->
-    <div class="hero__sash" aria-hidden="true">
-      <div class="hero__sash-track">
-        <span>EN DIRECTO</span><span class="hero__sash-dot">●</span>
-        <span>VIA MUSIC</span><span class="hero__sash-dot">●</span>
-        <span>TEMPORADA 26</span><span class="hero__sash-dot">●</span>
-        <span>EN DIRECTO</span><span class="hero__sash-dot">●</span>
-        <span>VIA MUSIC</span><span class="hero__sash-dot">●</span>
-        <span>TEMPORADA 26</span><span class="hero__sash-dot">●</span>
-      </div>
-    </div>
+    <span class="hero__ghost" aria-hidden="true">26</span>
 
     <div class="container hero__content">
-      <div class="hero__top hero__in hero__in--1">
-        <a href="#canciones" class="hero__live" id="heroLive">
-          <span class="hero__live-dot" aria-hidden="true"></span>
-          <span>Sonando ahora: <strong id="heroLiveTrack">—</strong></span>
-        </a>
-        <span class="hero__kicker">Promotora musical · Conciertos y festivales</span>
-      </div>
+      <a href="#canciones" class="hero__live hero__in hero__in--1" id="heroLive">
+        <span class="hero__live-dot" aria-hidden="true"></span>
+        <span>Sonando ahora: <strong id="heroLiveTrack">—</strong></span>
+      </a>
 
-      <div class="hero__main">
-        <h1 class="hero__title">
-          <span class="line hero__in hero__in--2">ESTO ES</span>
-          <span class="line hero__title-accent hero__in hero__in--3">ESPECTÁCULO</span>
-        </h1>
+      <h1 class="hero__title">
+        <span class="line hero__in hero__in--2">ESTO ES</span>
+        <span class="line hero__title-accent hero__in hero__in--3">ESPECTÁCULO</span>
+      </h1>
 
-        <div class="hero__bottom">
-          <p class="hero__sub hero__in hero__in--4">Diseñamos, producimos y llevamos a escena los conciertos y festivales que la gente recuerda toda la vida. De la primera idea al último aplauso.</p>
+      <div class="hero__bottom">
+        <p class="hero__sub hero__in hero__in--4">Diseñamos, producimos y llevamos a escena los conciertos y festivales que la gente recuerda toda la vida. De la primera idea al último aplauso.</p>
 
-          <div class="hero__actions hero__in hero__in--5">
-            <a href="#discografia" class="btn btn--solid">Descubre el cartel</a>
-            <a href="#contacto" class="btn btn--ghost">Trae tu evento a VIA →</a>
-          </div>
+        <div class="hero__actions hero__in hero__in--5">
+          <a href="#discografia" class="btn btn--solid" data-magnetic>Descubre el cartel</a>
+          <a href="#contacto" class="btn btn--ghost">Trae tu evento a VIA →</a>
         </div>
       </div>
     </div>
 
     <a href="#discografia" class="hero__scroll hero__in hero__in--6" aria-label="Bajar a la discografía">
-      <span class="hero__scroll-badge">
-        <svg class="hero__scroll-ring" viewBox="0 0 120 120" aria-hidden="true">
-          <defs>
-            <path id="scrollRingPath" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"></path>
-          </defs>
-          <text>
-            <textPath href="#scrollRingPath" startOffset="0%">DESLIZA · DESLIZA · DESLIZA · </textPath>
-          </text>
-        </svg>
-        <svg class="hero__scroll-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
+      <svg width="14" height="24" viewBox="0 0 14 24" fill="none" aria-hidden="true">
+        <path d="M7 1v19M7 20l-5.5-5.5M7 20l5.5-5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </a>
   </section>
 

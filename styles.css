@@ -145,7 +145,43 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   transition:padding .35s ease;
 }
 .nav.is-scrolled .nav__inner{ padding-block:12px; }
-.nav__logo{ width:126px; }
+
+/* Ticker superior — dato de marca en movimiento constante, encima del
+   nav. Se colapsa al hacer scroll para dejar el nav compacto: la franja
+   solo tiene sentido como primera impresión, no como peso permanente. */
+.nav__ticker{
+  overflow:hidden;
+  background:#000;
+  border-bottom:1px solid rgba(255,0,146,0.25);
+  max-height:34px;
+  transition:max-height .35s ease, opacity .35s ease;
+}
+.nav.is-scrolled .nav__ticker{ max-height:0; opacity:0; border-color:transparent; }
+.nav__ticker-track{
+  display:flex;
+  align-items:center;
+  gap:24px;
+  width:max-content;
+  white-space:nowrap;
+  padding:9px 0;
+  animation:tickerScroll 24s linear infinite;
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:0.72rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--magenta-soft);
+}
+.nav__ticker-dot{ color:var(--white); opacity:.35; font-size:0.6em; }
+@keyframes tickerScroll{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce){
+  .nav__ticker-track{ animation:none; }
+}
+
+.nav__logo{ width:76px; }
 .nav__logo img{ width:100%; height:auto; }
 .nav__links{
   display:flex;
@@ -223,14 +259,12 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 }
 
 /* ============ HERO ============ */
-/* Composición asimétrica tipo cartel de concierto: la franja superior
-   lleva el dato en vivo, el titular se ancla abajo dejando aire arriba
-   a la derecha para el sash — no es el stack centrado típico de landing. */
 .hero{
   min-height:100svh;
   display:flex;
   flex-direction:column;
-  padding-top:120px;
+  justify-content:center;
+  padding-top:156px;
   position:relative;
   isolation:isolate;
 }
@@ -276,6 +310,26 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   mix-blend-mode:overlay;
 }
 
+/* Numeral fantasma — solo contorno, textura de fondo tipo cartel de
+   temporada. Puramente decorativo, nunca compite con el texto real. */
+.hero__ghost{
+  position:absolute;
+  top:6%;
+  right:clamp(-60px, 1vw, 10px);
+  z-index:0;
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:clamp(9rem, 30vw, 26rem);
+  line-height:0.78;
+  color:transparent;
+  -webkit-text-stroke:1.5px rgba(255,0,146,0.16);
+  pointer-events:none;
+  user-select:none;
+}
+@media (max-width:760px){
+  .hero__ghost{ font-size:clamp(7rem, 46vw, 14rem); top:4%; }
+}
+
 .hero__content{ position:relative; z-index:2; }
 
 /* Coreografía de entrada: cada pieza del hero aparece en cascada al
@@ -286,10 +340,10 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   animation:heroIn .9s cubic-bezier(.16,1,.3,1) forwards;
 }
 .hero__in--1{ animation-delay:.05s; }
-.hero__in--2{ animation-delay:.15s; }
-.hero__in--3{ animation-delay:.28s; }
-.hero__in--4{ animation-delay:.42s; }
-.hero__in--5{ animation-delay:.54s; }
+.hero__in--2{ animation-delay:.18s; }
+.hero__in--3{ animation-delay:.32s; }
+.hero__in--4{ animation-delay:.48s; }
+.hero__in--5{ animation-delay:.6s; }
 .hero__in--6{ animation-delay:.9s; }
 @keyframes heroIn{
   from{ opacity:0; transform:translateY(18px); }
@@ -298,86 +352,6 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 @media (prefers-reduced-motion: reduce){
   .hero__in{ animation:none; opacity:1; transform:none; }
 }
-
-.hero__content{
-  position:relative; z-index:2;
-  display:flex;
-  flex-direction:column;
-  flex:1;
-  padding-bottom:clamp(56px, 8vw, 96px);
-}
-
-.hero__top{
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:20px 28px;
-}
-.hero__kicker{
-  font-family:var(--font-body);
-  font-weight:900;
-  font-size:0.78rem;
-  letter-spacing:0.24em;
-  text-transform:uppercase;
-  color:var(--muted-dim);
-}
-
-/* El bloque principal se empuja al fondo con margin-top:auto: deja un
-   hueco arriba a la derecha (donde vive el sash) en vez de centrar todo
-   verticalmente — composición de cartel, no de slide de producto. */
-.hero__main{ margin-top:auto; padding-top:56px; }
-
-.hero__title{
-  font-size:clamp(3.1rem, 10vw, 8rem);
-  line-height:0.92;
-  text-transform:uppercase;
-  text-align:left;
-}
-.hero__title .line{ display:block; }
-
-/* Titular de impacto: textura de cinta de escenario (rayas diagonales
-   magenta) recortada al texto, en vez del gradiente de dos tonos que
-   ya lleva todo el mundo. Se mueve despacio, como un letrero de neón,
-   no como un efecto llamativo sin motivo. */
-.hero__title-accent{
-  background-image:repeating-linear-gradient(
-    115deg,
-    var(--magenta) 0 22px,
-    var(--magenta-soft) 22px 30px,
-    var(--magenta) 30px 52px
-  );
-  background-size:240% 100%;
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  animation:titleTape 16s linear infinite;
-}
-@keyframes titleTape{
-  from{ background-position:0% 0%; }
-  to{ background-position:-240% 0%; }
-}
-@media (prefers-reduced-motion: reduce){
-  .hero__title-accent{ animation:none; background-position:0% 0%; }
-}
-
-.hero__bottom{
-  margin-top:40px;
-  display:grid;
-  grid-template-columns:1fr auto;
-  align-items:end;
-  gap:40px 56px;
-}
-
-/* Foco que sigue al ratón — un guiño sutil, no un efecto gratuito:
-   revela el grano/textura de fondo justo donde está la atención. */
-.hero__spotlight{
-  position:absolute; inset:0;
-  pointer-events:none;
-  background:radial-gradient(560px circle at var(--sx,50%) var(--sy,32%), rgba(255,0,146,0.16), transparent 60%);
-  opacity:0;
-  transition:opacity .4s ease;
-}
-.hero:hover .hero__spotlight{ opacity:1; }
 
 /* Chip "sonando ahora" — dato real, no decorativo */
 .hero__live{
@@ -406,62 +380,83 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   50%{ opacity:.6; box-shadow:0 0 0 5px rgba(255,0,146,0); }
 }
 
-/* Sash — banda diagonal de esquina, motivo real de cartel de festival
-   (la pegatina "AGOTADO" / "NUEVA FECHA"), no una marquesina de landing.
-   Fondo oscuro + borde magenta para no chocar con AA sobre magenta sólido. */
-.hero__sash{
-  position:absolute;
-  top:96px; right:-140px;
-  width:560px;
-  transform:rotate(8deg);
-  z-index:1;
-  overflow:hidden;
-  border-top:1px solid rgba(255,0,146,0.4);
-  border-bottom:1px solid rgba(255,0,146,0.4);
-  background:rgba(19,16,25,0.72);
-  backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);
-}
-.hero__sash-track{
-  display:flex;
-  align-items:center;
-  gap:20px;
-  width:max-content;
-  white-space:nowrap;
-  padding:9px 0;
-  animation:marqueeScroll 22s linear infinite;
-  font-family:var(--font-display);
-  font-weight:700;
-  font-size:0.82rem;
-  letter-spacing:0.14em;
+/* Titular kinético: escala enorme + ligera inclinación de cartel
+   pegado a mano, no de tarjeta de producto perfectamente cuadrada. */
+.hero__title{
+  margin-top:18px;
+  font-size:clamp(3.4rem, 12vw, 8.2rem);
+  line-height:0.88;
   text-transform:uppercase;
-  color:var(--white);
+  text-align:left;
+  transform:rotate(-1.4deg);
+  transform-origin:0% 50%;
 }
-.hero__sash-dot{ color:var(--magenta); font-size:0.6em; }
-@keyframes marqueeScroll{
-  from{ transform:translateX(0); }
-  to{ transform:translateX(-50%); }
+.hero__title .line{ display:block; }
+
+.hero__title-accent{
+  background-image:repeating-linear-gradient(
+    115deg,
+    var(--magenta) 0 22px,
+    var(--magenta-soft) 22px 30px,
+    var(--magenta) 30px 52px
+  );
+  background-size:240% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  /* Dos animaciones a la vez: la entrada en cascada (heroIn, respetando
+     el delay de .hero__in--3) y el desplazamiento continuo de las rayas.
+     Declarar solo titleTape machacaría heroIn y dejaría la línea
+     invisible (opacity 0 inicial sin animación que la suba a 1). */
+  animation:
+    heroIn .9s cubic-bezier(.16,1,.3,1) .32s forwards,
+    titleTape 16s linear .32s infinite;
+}
+@keyframes titleTape{
+  from{ background-position:0% 0%; }
+  to{ background-position:-240% 0%; }
 }
 @media (prefers-reduced-motion: reduce){
-  .hero__sash-track{ animation:none; }
-}
-@media (max-width: 760px){
-  .hero__sash{ top:78px; right:-160px; width:460px; }
-  .hero__sash-track{ font-size:0.72rem; }
+  .hero__title-accent{ animation:none; opacity:1; transform:none; background-position:0% 0%; }
 }
 
+/* Foco que sigue al ratón — un guiño sutil, no un efecto gratuito:
+   revela el grano/textura de fondo justo donde está la atención. */
+.hero__spotlight{
+  position:absolute; inset:0;
+  pointer-events:none;
+  background:radial-gradient(560px circle at var(--sx,50%) var(--sy,32%), rgba(255,0,146,0.16), transparent 60%);
+  opacity:0;
+  transition:opacity .4s ease;
+}
+.hero:hover .hero__spotlight{ opacity:1; }
+
+.hero__bottom{
+  margin-top:48px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:end;
+  gap:32px 56px;
+}
 .hero__sub{
-  max-width:46ch;
+  max-width:44ch;
   font-size:1.15rem;
   color:var(--muted);
 }
-
 .hero__actions{
   display:flex;
   align-items:center;
   gap:28px;
   flex-wrap:wrap;
   justify-self:start;
+}
+
+/* Viewports cortos (portátiles 13", móviles pequeños): compactar el
+   hero para que todo —incluida la flecha de scroll— quepa sin corte. */
+@media (max-height: 800px){
+  .hero{ padding-top:148px; }
+  .hero__title{ font-size:clamp(3rem, 10.5vw, 7rem); }
+  .hero__bottom{ margin-top:32px; }
 }
 
 .btn{
@@ -480,9 +475,9 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 .btn--solid{
   background:var(--magenta-btn);
   color:#fff;
+  will-change:transform;
 }
 .btn--solid:hover{
-  transform:translateY(-2px);
   box-shadow:0 12px 32px rgba(255,0,146,0.4);
 }
 .btn--ghost{
@@ -497,52 +492,25 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 }
 .btn--ghost:hover{ border-color:var(--magenta); color:var(--magenta-soft); }
 
-/* Insignia de scroll circular — guiño a un sello/vinilo girando, no la
-   típica línea con "Scroll" que ya ha visto todo el mundo. Sigue siendo
-   un link real, con aria-label, foco visible y target de 44px. */
+/* Indicador de scroll — mínimo, una flecha que respira, en la esquina.
+   No compite con el titular gigante; solo confirma que hay más abajo. */
 .hero__scroll{
   position:absolute;
   bottom:28px; right:var(--pad);
   z-index:2;
-}
-.hero__scroll-badge{
-  position:relative;
   display:flex; align-items:center; justify-content:center;
-  width:76px; height:76px;
-  border-radius:50%;
+  width:44px; height:44px;
   color:var(--muted-dim);
-  transition:color .25s ease, transform .25s ease;
+  transition:color .25s ease;
 }
-.hero__scroll:hover .hero__scroll-badge,
-.hero__scroll:focus-visible .hero__scroll-badge{
-  color:var(--magenta-soft);
-  transform:scale(1.06);
-}
-.hero__scroll-ring{
-  position:absolute; inset:0;
-  width:100%; height:100%;
-  fill:currentColor;
-  font-family:var(--font-body);
-  font-size:9.4px;
-  font-weight:900;
-  letter-spacing:0.12em;
-  animation:scrollRingSpin 13s linear infinite;
-}
-@keyframes scrollRingSpin{
-  from{ transform:rotate(0deg); }
-  to{ transform:rotate(360deg); }
-}
-.hero__scroll-arrow{
-  position:relative;
-  animation:scrollArrowNudge 1.8s ease-in-out infinite;
-}
-@keyframes scrollArrowNudge{
+.hero__scroll svg{ animation:scrollNudge 1.8s ease-in-out infinite; }
+.hero__scroll:hover, .hero__scroll:focus-visible{ color:var(--magenta-soft); }
+@keyframes scrollNudge{
   0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(4px); }
+  50%{ transform:translateY(5px); }
 }
 @media (prefers-reduced-motion: reduce){
-  .hero__scroll-ring{ animation:none; }
-  .hero__scroll-arrow{ animation:none; }
+  .hero__scroll svg{ animation:none; }
 }
 @media (max-width: 760px){
   .hero__scroll{ display:none; }
