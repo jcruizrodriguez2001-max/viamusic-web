@@ -392,24 +392,30 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 /* Recorte de la máscara: el contenedor esconde el desbordamiento inferior */
 .hero__line{ overflow:hidden; padding-bottom:0.08em; }
 
-/* Pie: lede en una sola línea larga + CTA debajo, desplazado a la derecha */
+/* Pie: lede a la izquierda (empieza a la altura de HAZ, sin sangría) y
+   CTA empujado a la derecha en la misma fila. En una línea horizontal. */
 .hero__foot{
   margin-top:clamp(24px, 3.5vw, 44px);
-  margin-left:clamp(0px, 6vw, 120px);
   display:flex;
-  flex-direction:column;
-  gap:24px;
-  align-items:flex-start;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+  flex-wrap:nowrap;
 }
 .hero__lede{
   margin:0;
-  max-width:none;
-  white-space:nowrap;
+  min-width:0;
+  max-width:60ch;
+  white-space:normal;
   color:var(--muted);
-  font-size:clamp(0.9rem, 1.15vw, 1.12rem);
+  font-size:clamp(0.85rem, 1.05vw, 1.05rem);
   line-height:1.5;
 }
-.hero__cta{ display:flex; align-items:center; gap:26px; flex-wrap:wrap; }
+.hero__cta{
+  display:flex; align-items:center; gap:28px;
+  flex-wrap:wrap;
+  flex-shrink:0;
+}
 
 .btn{
   display:inline-flex; align-items:center; gap:10px;
@@ -422,50 +428,44 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 }
 .btn--solid{ background:var(--magenta-btn); color:#fff; will-change:transform; }
 .btn--solid:hover{ box-shadow:0 12px 32px rgba(255,0,146,0.4); }
-.btn--ghost{
-  color:var(--white); font-weight:700; text-transform:none;
-  letter-spacing:0; padding:0 0 4px; border:none;
-  border-bottom:1px solid var(--line); border-radius:0;
-}
-.btn--ghost:hover{ border-color:var(--magenta); color:var(--magenta-soft); }
 
-/* Indicador de scroll — punto que recorre un raíl, vivo y discreto */
-.hero__scroll{
-  position:absolute; z-index:2;
-  bottom:26px; right:clamp(20px, 5vw, 56px);
-  display:flex; flex-direction:column; align-items:center; gap:10px;
-  color:var(--muted-dim);
-  font-size:0.66rem; letter-spacing:0.24em; text-transform:uppercase;
-  font-weight:700;
-  transition:color .25s ease;
+/* Ghost button con línea de neón: un haz magenta recorre la línea
+   inferior de izquierda a derecha en bucle, como el punto del scroll. */
+.btn--ghost{
+  position:relative;
+  color:var(--white); font-weight:700; text-transform:none;
+  letter-spacing:0; padding:0 0 6px; border:none; border-radius:0;
+  background:none;
 }
-.hero__scroll:hover, .hero__scroll:focus-visible{ color:var(--magenta-soft); }
-.hero__scroll-rail{
-  position:relative; width:1px; height:46px;
-  background:linear-gradient(var(--line), transparent);
-  overflow:hidden;
+.btn--ghost::before{
+  content:"";
+  position:absolute; left:0; right:0; bottom:0;
+  height:1.5px;
+  background:var(--line);
 }
-.hero__scroll-dot{
-  position:absolute; left:50%; top:0;
-  width:4px; height:10px; margin-left:-2px;
-  border-radius:2px; background:var(--magenta);
-  animation:scrollDot 1.9s cubic-bezier(.7,0,.3,1) infinite;
+.btn--ghost::after{
+  content:"";
+  position:absolute; left:0; bottom:0;
+  width:40%; height:1.5px;
+  background:linear-gradient(90deg, transparent, var(--magenta) 45%, var(--magenta-soft) 55%, transparent);
+  box-shadow:0 0 8px rgba(255,0,146,0.8), 0 0 4px rgba(255,0,146,0.9);
+  animation:neonSweep 2.6s linear infinite;
 }
-@keyframes scrollDot{
-  0%{ transform:translateY(-12px); opacity:0; }
-  35%{ opacity:1; }
-  100%{ transform:translateY(46px); opacity:0; }
+@keyframes neonSweep{
+  0%{ transform:translateX(-110%); }
+  100%{ transform:translateX(360%); }
 }
+.btn--ghost:hover{ color:var(--magenta-soft); }
+.btn--ghost:hover::after{ animation-duration:1.3s; }
 @media (prefers-reduced-motion: reduce){
-  .hero__scroll-dot{ animation:none; top:18px; }
+  .btn--ghost::after{ animation:none; opacity:.7; }
 }
-@media (max-width: 900px){ .hero__scroll{ display:none; } }
 
 /* Responsive del hero */
 @media (max-width: 820px){
   .hero__grid{ grid-template-columns:1fr; gap:0; }
   .hero__meta{ display:none; }
-  .hero__foot{ margin-left:0; }
+  .hero__foot{ flex-direction:column; align-items:flex-start; gap:26px; }
   .hero__lede{ white-space:normal; }
   .hero{ padding-top:124px; }
   .hero__line--2{ padding-left:0; }
