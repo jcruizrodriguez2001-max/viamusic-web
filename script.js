@@ -163,51 +163,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-/* ---------- Hero: ondas de audio del fondo ----------
-   Dibuja varias líneas tipo espectro de sonido en el SVG del fondo. Son
-   curvas reales calculadas, no un degradado decorativo. En reduced-motion
-   se dibujan estáticas (sin animación de fase). */
-(function heroWaves(){
-  const g = document.querySelector(".hero__waves-g");
-  if (!g) return;
-  const W = 1440, H = 900, mid = H * 0.52;
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const LINES = 5;
-  const paths = [];
-
-  for (let i = 0; i < LINES; i++){
-    const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    p.setAttribute("opacity", (0.5 - i * 0.08).toFixed(2));
-    g.appendChild(p);
-    paths.push(p);
-  }
-
-  function build(t){
-    for (let i = 0; i < LINES; i++){
-      const amp = 60 + i * 34;
-      const freq = 0.006 + i * 0.0016;
-      const phase = t * (0.6 + i * 0.25) + i * 1.7;
-      const yBase = mid + (i - LINES / 2) * 26;
-      let d = `M0 ${yBase.toFixed(1)}`;
-      for (let x = 0; x <= W; x += 24){
-        const y = yBase
-          + Math.sin(x * freq + phase) * amp
-          + Math.sin(x * freq * 2.3 + phase * 1.4) * (amp * 0.28);
-        d += ` L${x} ${y.toFixed(1)}`;
-      }
-      paths[i].setAttribute("d", d);
-    }
-  }
-
-  if (reduce){ build(0); return; }
-  let start = null;
-  function tick(ts){
-    if (start === null) start = ts;
-    build((ts - start) / 1000);
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-})();
+/* ---------- Hero: (fondo con foto, sin generador de ondas) ---------- */
 
 /* ---------- Hero: chip "sonando ahora" con dato real ----------
    Usa la misma canción Nº1 que ya mostramos en Canciones — no es un

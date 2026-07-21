@@ -97,3 +97,16 @@ exactamente los que se suben.
   CSS/JS puro — no dependen de ninguna librería externa.
 - Web totalmente responsive (adaptada a móvil) y con foco visible de teclado
   para accesibilidad.
+
+## Foto de portada
+
+La imagen de fondo del hero (`assets/hero-concierto.jpg`) es una foto de
+concierto de **Pexels** (autor: Teddy Yang), de uso libre. Ya está
+optimizada para web (~218 KB). Si quieres cambiarla por una foto vuestra
+de un evento real, sustituye ese archivo manteniendo el nombre, o dímelo
+y la preparo. Recomendado: horizontal, mínimo 2000px de ancho, con zonas
+oscuras donde encaje el texto.
+
+También queda incluida `assets/hero-arena.jpg` como alternativa (tono azul
+más frío) por si prefieres esa; para usarla, cambia el `src` de la imagen
+del hero en `index.html`.

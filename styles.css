@@ -272,22 +272,36 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   background:#08060c;
 }
 
-/* Fondo: casi negro con ondas de audio dibujadas por JS (líneas reales,
-   no un degradado de relleno). Textura de ruido sutil encima. */
-.hero__bg{ position:absolute; inset:0; z-index:0; }
-.hero__waves{ position:absolute; inset:0; width:100%; height:100%; opacity:.5; }
+/* Fondo: foto de concierto a pantalla completa. El scrim (degradado
+   oscuro) garantiza contraste AA del texto sobre cualquier zona de la
+   imagen — más denso a la izquierda/abajo, donde vive el titular. */
+.hero__photo{ position:absolute; inset:0; z-index:0; }
+.hero__photo img{
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:center 42%;
+  animation:heroZoom 18s ease-out forwards;
+}
+@keyframes heroZoom{
+  from{ transform:scale(1.08); }
+  to{ transform:scale(1); }
+}
+@media (prefers-reduced-motion: reduce){
+  .hero__photo img{ animation:none; }
+}
+.hero__scrim{
+  position:absolute; inset:0; z-index:1;
+  background:
+    linear-gradient(90deg, rgba(8,6,12,0.92) 0%, rgba(8,6,12,0.6) 42%, rgba(8,6,12,0.25) 100%),
+    linear-gradient(0deg, rgba(8,6,12,0.95) 0%, rgba(8,6,12,0.2) 45%, rgba(8,6,12,0.55) 100%);
+  pointer-events:none;
+}
 .hero__noise{
-  position:absolute; inset:0;
-  background-image:radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px);
+  position:absolute; inset:0; z-index:1;
+  background-image:radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
   background-size:3px 3px;
   mix-blend-mode:overlay;
   opacity:.5;
-}
-/* Viñeta que centra la atención sin usar magenta plano */
-.hero::before{
-  content:"";
-  position:absolute; inset:0; z-index:1;
-  background:radial-gradient(120% 80% at 50% 42%, transparent 40%, rgba(8,6,12,0.72) 100%);
   pointer-events:none;
 }
 
@@ -354,6 +368,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   font-size:clamp(3.4rem, 15.5vw, 12.5rem);
   color:var(--magenta);
   line-height:0.78;
+  text-shadow:0 4px 40px rgba(255,0,146,0.35), 0 2px 12px rgba(0,0,0,0.4);
 }
 .hero__word--en{
   font-size:clamp(1.3rem, 4.4vw, 3.2rem);
@@ -369,6 +384,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   line-height:0.78;
   align-self:flex-end;
   margin-right:clamp(0px, 2vw, 40px);
+  text-shadow:0 2px 24px rgba(0,0,0,0.55);
 }
 
 /* Entrada por palabra: sube desde abajo con recorte, tipo créditos. */
