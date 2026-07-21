@@ -165,15 +165,6 @@ document.addEventListener("keydown", (e) => {
 
 /* ---------- Hero: (fondo con foto, sin generador de ondas) ---------- */
 
-/* ---------- Hero: chip "sonando ahora" con dato real ----------
-   Usa la misma canción Nº1 que ya mostramos en Canciones — no es un
-   texto de relleno, es el mismo dato real de Spotify. */
-(function heroLive(){
-  const el = document.getElementById("heroLiveTrack");
-  if (!el || !CANCIONES[0]) return;
-  el.textContent = `${CANCIONES[0].titulo} — ${CANCIONES[0].artista}`;
-})();
-
 /* ---------- Botón magnético ----------
    El CTA principal se deja "atraer" un poco por el cursor dentro de un
    radio corto. Solo en puntero fino y sin reduced-motion: es un guiño,
