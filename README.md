@@ -110,3 +110,32 @@ oscuras donde encaje el texto.
 También queda incluida `assets/hero-arena.jpg` como alternativa (tono azul
 más frío) por si prefieres esa; para usarla, cambia el `src` de la imagen
 del hero en `index.html`.
+
+---
+
+## PENDIENTE ANTES DE PUBLICAR
+
+### 1. URLs de redes sociales (obligatorio)
+Los tres iconos del menú (Instagram, Facebook, LinkedIn) apuntan a `href="#"`.
+Busca `data-social` en `index.html` (6 apariciones: 3 en el menú de escritorio
+y 3 en el móvil) y sustituye `href="#"` por la URL real de cada perfil.
+Si algún perfil aún no existe, borra ese enlace en vez de dejarlo en `#`.
+
+### 2. El formulario no envía (obligatorio)
+El `<form id="contactForm">` valida y muestra confirmación, pero no manda el
+correo. Opción rápida sin programar:
+1. Crea una cuenta en formspree.io o web3forms.com
+2. Te dan una URL tipo `https://formspree.io/f/xxxxxxx`
+3. En `index.html` añade al `<form>`:  `action="LA_URL" method="POST"`
+
+### 3. Dominio en las etiquetas sociales (obligatorio)
+En el `<head>` hay 4 apariciones de `https://viamusic.es` (canonical, og:url,
+og:image, twitter:image). Sustitúyelas por tu dominio real. Sin esto, al
+compartir el enlace en WhatsApp o Instagram no se verá la imagen de portada.
+
+### 4. Contenido propio (recomendado)
+- Las secciones "La escena / En bucle / En el radar" muestran artistas que NO
+  son de VIA MUSIC: son referencias declaradas como tales. Cuando tengáis
+  artistas o eventos propios, sustituidlos en las listas de `script.js`.
+- La foto del hero es de banco de imágenes (Pexels). En cuanto tengáis foto de
+  un evento vuestro, sustituid `assets/hero-concierto.jpg` manteniendo el nombre.

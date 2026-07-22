@@ -208,19 +208,32 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 .nav__links a:focus-visible::after,
 .nav__links a.is-active::after{ width:100%; }
 
-.nav__cta{
-  border:1px solid var(--magenta);
-  color:var(--white);
-  padding:10px 22px;
-  border-radius:999px;
-  font-weight:800;
-  font-size:0.86rem;
-  letter-spacing:0.03em;
-  transition:background .25s ease, color .25s ease, box-shadow .25s ease;
+/* Iconos sociales del nav: blancos en reposo, magenta al pasar el ratón.
+   Zona táctil de 44px aunque el icono dibujado sea de 19px. */
+.nav__social{
+  display:flex;
+  align-items:center;
+  gap:4px;
 }
-.nav__cta:hover{
-  background:var(--magenta-btn);
-  box-shadow:0 0 28px rgba(255,0,146,0.55);
+.nav__social-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:44px; height:44px;
+  color:var(--white);
+  border-radius:50%;
+  transition:color .25s ease, background .25s ease, transform .25s ease;
+}
+.nav__social-link:hover,
+.nav__social-link:focus-visible{
+  color:var(--magenta);
+  background:rgba(255,0,146,0.10);
+  transform:translateY(-1px);
+}
+.nav__social--mobile{
+  justify-content:center;
+  gap:10px;
+  margin-top:26px;
 }
 
 .nav__burger{
@@ -433,6 +446,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
    inferior de izquierda a derecha en bucle, como el punto del scroll. */
 .btn--ghost{
   position:relative;
+  overflow:hidden;   /* el barrido de neón no debe salirse del subrayado */
   color:var(--white); font-weight:700; text-transform:none;
   letter-spacing:0; padding:0 0 6px; border:none; border-radius:0;
   background:none;
@@ -490,16 +504,49 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   gap:0;
 }
 .stat{
+  position:relative;
   text-align:left;
   min-width:0;
-  padding:0 clamp(20px, 2.4vw, 34px);
+  padding:22px clamp(20px, 2.4vw, 34px) 0;
   border-left:1px solid var(--line);
+}
+/* Línea magenta que se traza sobre cada dato, de izquierda a derecha.
+   Va arriba (no en el separador) para no montarse con el texto. */
+.stat::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:clamp(20px, 2.4vw, 34px);
+  right:clamp(20px, 2.4vw, 34px);
+  height:2px;
+  background:var(--magenta);
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform .75s cubic-bezier(.16,1,.3,1);
+  transition-delay:calc(var(--i) * 0.12s + 0.15s);
+}
+.stats__row.is-visible .stat::before{ transform:scaleX(1); }
+.stat:first-child::before{ left:0; }
+
+/* Contenido: sube y aparece, escalonado dato a dato */
+.stat strong, .stat span{
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .6s ease, transform .6s cubic-bezier(.16,1,.3,1);
+}
+.stat strong{ transition-delay:calc(var(--i) * 0.12s + 0.2s); }
+.stat span{ transition-delay:calc(var(--i) * 0.12s + 0.32s); }
+.stats__row.is-visible .stat strong,
+.stats__row.is-visible .stat span{ opacity:1; transform:translateY(0); }
+@media (prefers-reduced-motion: reduce){
+  .stat::before{ transform:scaleX(1); transition:none; }
+  .stat strong, .stat span{ opacity:1; transform:none; transition:none; }
 }
 .stat:first-child{ border-left:none; padding-left:0; }
 .stat strong{
   display:block;
   font-family:var(--font-display);
-  font-size:clamp(1.1rem, 1.5vw, 1.5rem);
+  font-size:clamp(1.2rem, 1.75vw, 1.75rem);
   letter-spacing:-0.01em;
   color:var(--white);
   line-height:1.2;
@@ -624,7 +671,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   z-index:2;
 }
 .card3d__info{ position:relative; z-index:2; }
-.card3d__info h4{
+.card3d__info h3{
   font-size:1.15rem;
   color:#fff;
   text-transform:uppercase;
@@ -747,7 +794,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   position:relative;
   flex-shrink:0;
 }
-.track__body h4{
+.track__body h3{
   font-family:var(--font-body);
   font-weight:700;
   font-size:1rem;
@@ -804,10 +851,12 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   border-radius:22px;
   padding:32px 16px;
 }
-.artist:first-child .artist__photo{ width:180px; height:180px; font-size:2.6rem; margin-bottom:22px; }
+.artist:first-child .artist__photo{
+  overflow:hidden; width:180px; height:180px; font-size:2.6rem; margin-bottom:22px; }
 .artist:first-child h4{ font-size:1.3rem; }
 .artist:first-child span{ font-size:0.9rem; }
 .artist__photo{
+  overflow:hidden;
   width:112px; height:112px;
   margin:0 auto 16px;
   border-radius:50%;
@@ -828,7 +877,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   transition:border-color .3s ease;
 }
 .artist:hover .artist__photo::after{ border-color:var(--magenta); }
-.artist h4{
+.artist h3{
   font-family:var(--font-body);
   font-weight:800;
   font-size:0.98rem;
@@ -881,7 +930,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
   transition:color .3s ease;
 }
 .value:hover .value__num{ color:var(--magenta); }
-.value__body h4{
+.value__body h3{
   font-family:var(--font-body);
   font-weight:800;
   font-size:1.05rem;
@@ -1114,36 +1163,106 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 .green{ background:var(--bg-elev); }
 .green__inner{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:56px;
+  grid-template-columns:1fr 1.15fr;
+  gap:clamp(32px, 5vw, 72px);
   align-items:start;
 }
 .green__head h2{
-  font-size:clamp(1.7rem, 3vw, 2.4rem);
+  font-size:clamp(2rem, 4.5vw, 3.4rem);
   margin:16px 0 18px;
+  letter-spacing:-0.02em;
 }
-.green__head p{ color:var(--muted); line-height:1.7; }
+.green__head p{ color:var(--muted); line-height:1.75; max-width:46ch; }
+
 .green__list{
   list-style:none; padding:0; margin:0;
   display:flex; flex-direction:column;
 }
 .green__list li{
-  padding:20px 0;
+  position:relative;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  grid-template-areas:"idx titulo" ". texto";
+  column-gap:18px; row-gap:4px;
+  padding:22px 0 22px 4px;
   border-bottom:1px solid var(--line);
-  display:flex; flex-direction:column; gap:6px;
+  overflow:hidden;
 }
 .green__list li:first-child{ border-top:1px solid var(--line); }
-.green__list strong{
+
+/* Animación propia: una barra magenta barre cada línea de izquierda a
+   derecha al entrar en pantalla, y el texto aparece detrás de ella.
+   Es distinta del reveal por desplazamiento del resto de secciones. */
+.green__list li::before{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(255,0,146,0.22), rgba(255,0,146,0));
+  transform:translateX(-100%);
+  transition:transform .85s cubic-bezier(.65,0,.35,1);
+  transition-delay:calc(var(--i) * 0.12s);
+  pointer-events:none;
+}
+.green__list.is-visible li::before{ transform:translateX(101%); }
+
+/* El mismo barrido, repetible al pasar el ratón. Va en un pseudo-elemento
+   distinto para no pisar el del scroll (ese solo se dispara una vez). */
+.green__list li::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(255,0,146,0.26), rgba(255,0,146,0));
+  transform:translateX(-100%);
+  pointer-events:none;
+}
+.green__list li:hover::after{
+  animation:greenSweep .8s cubic-bezier(.65,0,.35,1);
+}
+@keyframes greenSweep{
+  from{ transform:translateX(-100%); }
+  to{ transform:translateX(101%); }
+}
+/* Realce del texto mientras el ratón está encima */
+.green__list li{ transition:border-color .3s ease; }
+.green__list li:hover{ border-bottom-color:var(--magenta-soft); }
+.green__list li:hover .green__idx{ color:var(--magenta); }
+
+.green__idx{
+  grid-area:idx;
   font-family:var(--font-display);
-  font-weight:700; font-size:1.05rem;
+  font-weight:700; font-size:0.72rem;
+  letter-spacing:0.16em;
+  color:var(--magenta-soft);
+  padding-top:5px;
+}
+.green__list strong{
+  grid-area:titulo;
+  font-family:var(--font-display);
+  font-weight:700; font-size:1.08rem;
   color:var(--white);
 }
-.green__list span{ color:var(--muted); font-size:0.92rem; }
+.green__txt{
+  grid-area:texto;
+  color:var(--muted); font-size:0.92rem; line-height:1.55;
+}
+/* El contenido entra tras el barrido */
+.green__idx, .green__list strong, .green__txt{
+  opacity:0;
+  transform:translateX(-10px);
+  transition:opacity .5s ease, transform .6s cubic-bezier(.16,1,.3,1);
+  transition-delay:calc(var(--i) * 0.12s + 0.22s);
+}
+.green__list.is-visible .green__idx,
+.green__list.is-visible strong,
+.green__list.is-visible .green__txt{ opacity:1; transform:translateX(0); }
+
+@media (prefers-reduced-motion: reduce){
+  .green__list li::before, .green__list li::after{ display:none; }
+  .green__idx, .green__list strong, .green__txt{ opacity:1; transform:none; transition:none; }
+}
 
 @media (max-width: 900px){
   .services__grid{ grid-template-columns:1fr; }
   .process__steps{ grid-template-columns:1fr 1fr; }
-  .green__inner{ grid-template-columns:1fr; gap:32px; }
+  .green__inner{ grid-template-columns:1fr; gap:30px; }
 }
 @media (max-width: 560px){
   .process__steps{ grid-template-columns:1fr; }
@@ -1262,7 +1381,7 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 }
 .footer__logo{ width:150px; }
 .footer__cols{ display:flex; gap:64px; flex-wrap:wrap; }
-.footer__col h5{
+.footer__col h4{
   font-size:0.78rem;
   letter-spacing:0.12em;
   text-transform:uppercase;
@@ -1293,13 +1412,14 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
 }
 
 @media (max-width: 760px){
-  .nav__links, .nav__cta{ display:none; }
+  .nav__links, .nav__inner .nav__social{ display:none; }
   .nav__burger{ display:block; }
   .form{ grid-template-columns:1fr; }
   .track{ grid-template-columns:30px 48px 1fr auto; gap:14px; }
   .artists__grid{ grid-template-columns:repeat(2, 1fr); }
   .artist:first-child{ grid-column:1 / 3; grid-row:auto; flex-direction:row; align-items:center; justify-content:flex-start; text-align:left; padding:20px; gap:18px; }
-  .artist:first-child .artist__photo{ width:96px; height:96px; font-size:1.7rem; margin:0; flex-shrink:0; }
+  .artist:first-child .artist__photo{
+  overflow:hidden; width:96px; height:96px; font-size:1.7rem; margin:0; flex-shrink:0; }
   .footer__cta{ align-items:flex-start; flex-direction:column; }
 
   /* Stats: de fila horizontal (que se salía) a rejilla 2x2 con aire */
@@ -1309,13 +1429,20 @@ section{ position:relative; padding:clamp(72px,10vw,140px) 0; }
     grid-template-columns:1fr 1fr;
     gap:28px 20px;
   }
+  /* En móvil el acento es el borde izquierdo: la línea se dibuja ahí
+     (en vertical) en vez de arriba, así nunca se monta con el texto. */
   .stat{
-    padding:0;
-    border-left:none;
-    padding-left:16px;
-    border-left:2px solid var(--magenta);
+    padding:0 0 0 16px;
+    border-left:2px solid rgba(255,0,146,0.22);
   }
-  .stat:first-child{ padding-left:16px; border-left:2px solid var(--magenta); }
+  .stat:first-child{ padding-left:16px; border-left:2px solid rgba(255,0,146,0.22); }
+  .stat::before{
+    top:0; left:-2px; right:auto;
+    width:2px; height:100%;
+    transform:scaleY(0);
+    transform-origin:top center;
+  }
+  .stats__row.is-visible .stat::before{ transform:scaleY(1); }
   .stat strong{ white-space:normal; font-size:1.35rem; }
 }
 

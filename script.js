@@ -271,7 +271,7 @@ document.addEventListener("keydown", (e) => {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
         </button>
         <div class="card3d__info">
-          <h4>${item.titulo}</h4>
+          <h3>${item.titulo}</h3>
           <span>${item.artista}</span>
         </div>
       </div>`;
@@ -399,7 +399,7 @@ document.addEventListener("keydown", (e) => {
       <span class="track__index">${String(i+2).padStart(2,"0")}</span>
       <span class="track__art" style="--c1:${t.c1};--c2:${t.c2}"></span>
       <span class="track__body">
-        <h4>${t.titulo}</h4>
+        <h3>${t.titulo}</h3>
         <span>${t.artista}</span>
       </span>
       <span class="track__link" aria-hidden="true">
@@ -423,7 +423,7 @@ document.addEventListener("keydown", (e) => {
     item.rel = "noopener";
     item.innerHTML = `
       <span class="artist__photo" style="--c1:${a.c1};--c2:${a.c2}">${initials(a.nombre)}</span>
-      <h4>${a.nombre}</h4>
+      <h3>${a.nombre}</h3>
       <span>${a.genero}</span>`;
     applyOfficialArtwork(item.querySelector(".artist__photo"), a.spotify);
     grid.appendChild(item);

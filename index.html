@@ -3,8 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VIA MUSIC — Promotora Musical</title>
-<meta name="description" content="VIA MUSIC es una promotora musical especializada en conciertos y festivales. Vive la música en directo con nosotros.">
+<title>VIA MUSIC — Promotora de conciertos y giras en Granada y Málaga</title>
+<meta name="description" content="VIA MUSIC es una promotora musical de Granada y Málaga. Producimos conciertos y giras de música urbana, pop y latina, de la primera idea al último aplauso.">
+<meta name="theme-color" content="#08060c">
+
+<!-- Al publicar: sustituye https://viamusic.es por tu dominio real -->
+<link rel="canonical" href="https://viamusic.es/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VIA MUSIC">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://viamusic.es/">
+<meta property="og:title" content="VIA MUSIC — Promotora de conciertos y giras">
+<meta property="og:description" content="Promotora musical de Granada y Málaga. Conciertos y giras de música urbana, pop y latina, del booking a la última factura.">
+<meta property="og:image" content="https://viamusic.es/assets/hero-concierto.jpg">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1307">
+<meta property="og:image:alt" content="Público en un concierto producido por VIA MUSIC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="VIA MUSIC — Promotora de conciertos y giras">
+<meta name="twitter:description" content="Promotora musical de Granada y Málaga. Conciertos y giras de música urbana, pop y latina.">
+<meta name="twitter:image" content="https://viamusic.es/assets/hero-concierto.jpg">
 
 <!-- Tipografías: Syne (display, impacto) + Lato (texto, tipografía de la identidad de marca) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +58,17 @@
       <a href="#contacto">Contacto</a>
     </nav>
 
-    <a href="#contacto" class="nav__cta">Habla con nosotros</a>
+    <div class="nav__social" aria-label="Redes sociales">
+      <a href="#" class="nav__social-link" aria-label="Instagram de VIA MUSIC" data-social>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor"/></svg>
+      </a>
+      <a href="#" class="nav__social-link" aria-label="Facebook de VIA MUSIC" data-social>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.6c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.2H8.7v3h2.4V21h3.4v-9.5h2.4l.4-3h-2.8z" fill="currentColor"/></svg>
+      </a>
+      <a href="#" class="nav__social-link" aria-label="LinkedIn de VIA MUSIC" data-social>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.75-1.95 4 0 4.4 2.5 4.4 5.75V21h-4v-5.6c0-1.34-.02-3.06-1.9-3.06-1.9 0-2.2 1.45-2.2 2.96V21h-4z" fill="currentColor"/></svg>
+      </a>
+    </div>
 
     <button class="nav__burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
@@ -53,6 +81,17 @@
   <a href="#proceso">Proceso</a>
   <a href="#nosotros">Nosotros</a>
   <a href="#contacto">Contacto</a>
+  <div class="nav__social nav__social--mobile" aria-label="Redes sociales">
+      <a href="#" class="nav__social-link" aria-label="Instagram de VIA MUSIC" data-social>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor"/></svg>
+      </a>
+      <a href="#" class="nav__social-link" aria-label="Facebook de VIA MUSIC" data-social>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.6c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.2H8.7v3h2.4V21h3.4v-9.5h2.4l.4-3h-2.8z" fill="currentColor"/></svg>
+      </a>
+      <a href="#" class="nav__social-link" aria-label="LinkedIn de VIA MUSIC" data-social>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.75-1.95 4 0 4.4 2.5 4.4 5.75V21h-4v-5.6c0-1.34-.02-3.06-1.9-3.06-1.9 0-2.2 1.45-2.2 2.96V21h-4z" fill="currentColor"/></svg>
+      </a>
+  </div>
 </nav>
 
 <main id="top">
@@ -85,7 +124,7 @@
         </h1>
 
         <div class="hero__foot">
-          <p class="hero__lede" data-reveal>Promotora musical en Granada y Málaga. Conciertos y giras de urbano, pop y latino — del booking a la última factura.</p>
+          <p class="hero__lede" data-reveal>Promotora de conciertos y giras en Granada y Málaga. Del booking a la última factura.</p>
           <div class="hero__cta" data-reveal>
             <a href="#contacto" class="btn btn--solid" data-magnetic>Hablemos</a>
             <a href="#que-hacemos" class="btn btn--ghost">Qué hacemos →</a>
@@ -97,11 +136,11 @@
 
   <!-- ============ STATS ============ -->
   <section class="stats">
-    <div class="container stats__row">
-      <div class="stat"><strong>Granada y Málaga</strong><span>Base en Andalucía, vocación nacional</span></div>
-      <div class="stat"><strong>Urbano, pop y latino</strong><span>Los géneros que hoy llenan recintos</span></div>
-      <div class="stat"><strong>Gestión 360°</strong><span>Del booking a la liquidación, sin intermediarios</span></div>
-      <div class="stat"><strong>Backstage abierto</strong><span>Enseñamos cómo se monta cada noche</span></div>
+    <div class="container stats__row reveal--stagger reveal">
+      <div class="stat" style="--i:0"><strong>Granada y Málaga</strong><span>Base en Andalucía, vocación nacional</span></div>
+      <div class="stat" style="--i:1"><strong>Urbano, pop y latino</strong><span>Los géneros que hoy llenan recintos</span></div>
+      <div class="stat" style="--i:2"><strong>Gestión 360°</strong><span>Del booking a la liquidación, sin intermediarios</span></div>
+      <div class="stat" style="--i:3"><strong>Backstage abierto</strong><span>Enseñamos cómo se monta cada noche</span></div>
     </div>
   </section>
 
@@ -306,35 +345,35 @@
         <div class="value">
           <span class="value__num">01</span>
           <div class="value__body">
-            <h4>Rigor</h4>
+            <h3>Rigor</h3>
             <p>Presupuestos detallados, cronogramas con margen de contingencia y control de desviaciones antes de que sean un problema.</p>
           </div>
         </div>
         <div class="value">
           <span class="value__num">02</span>
           <div class="value__body">
-            <h4>Datos</h4>
+            <h3>Datos</h3>
             <p>Ticketing propio y CRM desde el primer día. Decidimos con información real de compra, no con intuiciones.</p>
           </div>
         </div>
         <div class="value">
           <span class="value__num">03</span>
           <div class="value__body">
-            <h4>Ética</h4>
+            <h3>Ética</h3>
             <p>Transparencia total con artistas, proveedores y patrocinadores. Sin letra pequeña ni sorpresas en la liquidación.</p>
           </div>
         </div>
         <div class="value">
           <span class="value__num">04</span>
           <div class="value__body">
-            <h4>Experiencia</h4>
+            <h3>Experiencia</h3>
             <p>Acústica, seguridad y comodidad no se recortan cuando el presupuesto aprieta. Nunca.</p>
           </div>
         </div>
         <div class="value">
           <span class="value__num">05</span>
           <div class="value__body">
-            <h4>Cercanía</h4>
+            <h3>Cercanía</h3>
             <p>El público entra en el proceso, no solo en el recinto. Antes, durante y después del concierto.</p>
           </div>
         </div>
@@ -347,14 +386,30 @@
     <div class="container green__inner">
       <div class="green__head reveal">
         <p class="eyebrow">Compromiso</p>
-        <h2>Producir sin dejar el recinto peor de lo que estaba</h2>
-        <p>La sostenibilidad no es un adorno de marca: condiciona a quién contratamos, con qué material montamos y qué licencias podemos conseguir. Está alineada con los Objetivos de Desarrollo Sostenible 8 y 13.</p>
+        <h2>Sin dejar rastro</h2>
+        <p>No es un adorno de marca: condiciona a quién contratamos, con qué material montamos y qué licencias conseguimos. Cuando desmontamos, el recinto queda como estaba.</p>
       </div>
-      <ul class="green__list reveal--stagger reveal">
-        <li><strong>Cero plásticos de un solo uso</strong><span>En toda la infraestructura del evento, backstage incluido.</span></li>
-        <li><strong>Energía limpia</strong><span>Prioridad a generadores de hidrógeno verde y conexión a red en interiores.</span></li>
-        <li><strong>Contratación local</strong><span>Técnicos, catering y seguridad de la provincia donde producimos.</span></li>
-        <li><strong>Movilidad</strong><span>Información de transporte público y refuerzo de frecuencias nocturnas.</span></li>
+      <ul class="green__list reveal">
+        <li style="--i:0">
+          <span class="green__idx">01</span>
+          <strong>Cero plásticos de un solo uso</strong>
+          <span class="green__txt">En toda la infraestructura del evento, backstage incluido.</span>
+        </li>
+        <li style="--i:1">
+          <span class="green__idx">02</span>
+          <strong>Energía limpia</strong>
+          <span class="green__txt">Prioridad a generadores de hidrógeno verde y conexión a red en interiores.</span>
+        </li>
+        <li style="--i:2">
+          <span class="green__idx">03</span>
+          <strong>Contratación local</strong>
+          <span class="green__txt">Técnicos, catering y seguridad de la provincia donde producimos.</span>
+        </li>
+        <li style="--i:3">
+          <span class="green__idx">04</span>
+          <strong>Movilidad</strong>
+          <span class="green__txt">Información de transporte público y refuerzo de frecuencias nocturnas.</span>
+        </li>
       </ul>
     </div>
   </section>
@@ -369,30 +424,15 @@
 
         <div class="contact__detail">
           <span>Email</span>
-          <a href="mailto:hola@viamusic.es">hola@viamusic.es</a>
+          <a href="mailto:info@viamusic.es">info@viamusic.es</a>
         </div>
         <div class="contact__detail">
           <span>Teléfono</span>
-          <a href="tel:+34900000000">+34 900 00 00 00</a>
+          <a href="tel:+34652906056">+34 652 90 60 56</a>
         </div>
         <div class="contact__detail">
           <span>Dónde estamos</span>
           <strong>Granada · Málaga</strong>
-        </div>
-
-        <div class="social-row" aria-label="Redes sociales">
-          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></svg>
-          </a>
-          <a href="https://open.spotify.com" target="_blank" rel="noopener" aria-label="Spotify">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 9.5c3.5-1 8-0.6 11 1.2M7 13c3-0.8 6.5-0.5 9 1M7.5 16.2c2.5-0.6 5-0.4 7 0.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </a>
-          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="4" stroke="currentColor" stroke-width="1.6"/><path d="M10 9l6 3-6 3V9z" fill="currentColor"/></svg>
-          </a>
-          <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M14 3c.5 2.4 2 4 4.5 4.2V10c-1.7 0-3.2-.5-4.5-1.4V15a5.2 5.2 0 11-4.5-5.15V13a2.2 2.2 0 102.2 2.2V3H14z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
-          </a>
         </div>
       </div>
 
@@ -408,9 +448,9 @@
         <div class="field field--full">
           <label for="asunto">Asunto</label>
           <select id="asunto" name="asunto">
-            <option>Booking de artista</option>
-            <option>Programar un festival</option>
-            <option>Colaboración / patrocinio</option>
+            <option>Soy artista o agencia</option>
+            <option>Tengo una sala o recinto</option>
+            <option>Colaboración o patrocinio</option>
             <option>Prensa</option>
             <option>Otro</option>
           </select>
@@ -432,7 +472,7 @@
   <div class="container">
     <div class="footer__cta">
       <h3>¿Montamos algo grande?</h3>
-      <a href="mailto:hola@viamusic.es" class="footer__cta-link">hola@viamusic.es <span aria-hidden="true">→</span></a>
+      <a href="mailto:info@viamusic.es" class="footer__cta-link">info@viamusic.es <span aria-hidden="true">→</span></a>
     </div>
 
     <div class="footer__top">
@@ -442,7 +482,7 @@
 
       <div class="footer__cols">
         <div class="footer__col">
-          <h5>Explora</h5>
+          <h4>Explora</h4>
           <ul>
             <li><a href="#que-hacemos">Qué hacemos</a></li>
             <li><a href="#proceso">Cómo trabajamos</a></li>
@@ -450,18 +490,10 @@
           </ul>
         </div>
         <div class="footer__col">
-          <h5>Compañía</h5>
+          <h4>Compañía</h4>
           <ul>
             <li><a href="#nosotros">Nosotros</a></li>
             <li><a href="#contacto">Contacto</a></li>
-          </ul>
-        </div>
-        <div class="footer__col">
-          <h5>Síguenos</h5>
-          <ul>
-            <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="https://open.spotify.com" target="_blank" rel="noopener">Spotify</a></li>
-            <li><a href="https://tiktok.com" target="_blank" rel="noopener">TikTok</a></li>
           </ul>
         </div>
       </div>
