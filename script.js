@@ -380,7 +380,7 @@ document.addEventListener("keydown", (e) => {
   if (featuredWrap && top){
     const link = spotifyLinkFor(top, top.titulo, top.artista);
     featuredWrap.innerHTML = `
-      <span class="tracks__featured-label">Nº1 esta semana</span>
+      <span class="tracks__featured-label">En bucle</span>
       <div class="tracks__featured-art" style="--c1:${top.c1};--c2:${top.c2}"></div>
       <h3>${top.titulo}</h3>
       <p>${top.artista}</p>
